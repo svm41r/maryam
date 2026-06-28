@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Maryam's Tiny Love Game</title>
-    <meta name="description" content="A wholesome animated love game made for Maryam.">
+    <title>Maryam's Love Page</title>
+    <meta name="description" content="A wholesome, funny, romantic page made entirely for Maryam.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -24,22 +24,15 @@
             --ink: #53233f;
             --soft-ink: #875071;
             --white: #ffffff;
-            --shadow: rgba(132, 49, 96, 0.20);
-            --clay: 0 24px 60px var(--shadow), inset -8px -10px 22px rgba(174, 53, 112, 0.14), inset 10px 12px 26px rgba(255, 255, 255, 0.60);
-            --clay-sm: 0 14px 32px rgba(132, 49, 96, 0.16), inset -4px -6px 14px rgba(174, 53, 112, 0.12), inset 6px 8px 16px rgba(255, 255, 255, 0.60);
+            --shadow: rgba(132,49,96,0.20);
+            --clay: 0 24px 60px var(--shadow), inset -8px -10px 22px rgba(174,53,112,0.14), inset 10px 12px 26px rgba(255,255,255,0.60);
+            --clay-sm: 0 14px 32px rgba(132,49,96,0.16), inset -4px -6px 14px rgba(174,53,112,0.12), inset 6px 8px 16px rgba(255,255,255,0.60);
         }
 
-        html {
-            min-height: 100%;
-            background: var(--cream);
-            color: var(--ink);
-            font-family: 'Quicksand', 'Trebuchet MS', system-ui, sans-serif;
-            overflow-x: hidden;
-        }
+        html { min-height: 100%; background: var(--cream); color: var(--ink); font-family: 'Quicksand','Trebuchet MS',system-ui,sans-serif; overflow-x: hidden; }
 
         body {
-            min-height: 100svh;
-            overflow-x: hidden;
+            min-height: 100svh; overflow-x: hidden;
             background:
                 radial-gradient(ellipse at 12% 6%, rgba(255,255,255,0.95) 0 8%, transparent 22%),
                 radial-gradient(ellipse at 88% 10%, rgba(255,232,148,0.60) 0 7%, transparent 20%),
@@ -50,1162 +43,1018 @@
 
         button { font: inherit; border: 0; color: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent; }
         img, video { display: block; max-width: 100%; }
+        h1,h2,h3,p { margin: 0; }
 
-        .sparkle-dot {
-            position: fixed;
-            width: 8px; height: 8px;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 999;
-            opacity: 0;
-            animation: sparkleFade 0.7s ease-out forwards;
-        }
-        @keyframes sparkleFade {
-            0% { opacity: 1; transform: scale(1); }
-            100% { opacity: 0; transform: scale(0) translateY(-20px); }
-        }
+        /* ── SPARKLE CURSOR ── */
+        .sparkle-dot { position: fixed; width: 8px; height: 8px; border-radius: 50%; pointer-events: none; z-index: 999; opacity: 0; animation: sparkleFade 0.7s ease-out forwards; }
+        @keyframes sparkleFade { 0%{opacity:1;transform:scale(1)} 100%{opacity:0;transform:scale(0) translateY(-20px)} }
 
-        .deco-layer {
-            position: fixed; inset: 0;
-            overflow: hidden; pointer-events: none; z-index: 0;
-        }
-        .deco-star, .deco-heart-sm, .deco-butterfly, .deco-moon, .deco-flower {
-            position: absolute;
-            opacity: 0.30;
-            animation: decoFloat linear infinite;
-        }
-        .deco-star {
-            width: 18px; height: 18px;
-            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-            background: var(--lemon);
-        }
-        .deco-heart-sm {
-            width: 14px; height: 14px;
-            transform: rotate(45deg);
-            background: var(--pink);
-            border-radius: 4px 4px 1px 4px;
-        }
-        .deco-heart-sm::before, .deco-heart-sm::after {
-            content: ""; position: absolute;
-            width: 14px; height: 14px; border-radius: 50%; background: inherit;
-        }
-        .deco-heart-sm::before { left: -7px; top: 0; }
-        .deco-heart-sm::after { left: 0; top: -7px; }
-        .deco-butterfly {
-            width: 22px; height: 16px;
-            animation-name: butterflyFloat;
-        }
-        .deco-butterfly::before, .deco-butterfly::after {
-            content: ""; position: absolute;
-            width: 10px; height: 14px; border-radius: 50% 50% 50% 0;
-            background: var(--lilac);
-            top: 0;
-            animation: wingFlap 0.4s ease-in-out infinite alternate;
-        }
-        .deco-butterfly::before { left: 1px; transform-origin: right center; }
-        .deco-butterfly::after { right: 1px; border-radius: 50% 50% 0 50%; transform-origin: left center; animation-direction: alternate-reverse; }
-        .deco-moon {
-            width: 24px; height: 24px;
-            border-radius: 50%;
-            background: var(--lemon);
-            box-shadow: -6px -2px 0 0 var(--cream);
-        }
-        .deco-flower {
-            width: 20px; height: 20px;
-            background: var(--pink);
-            border-radius: 50%;
-            box-shadow: -8px 0 0 -2px var(--pink), 8px 0 0 -2px var(--pink), 0 -8px 0 -2px var(--pink), 0 8px 0 -2px var(--pink);
-        }
-        .deco-flower::after {
-            content: ""; position: absolute;
-            width: 8px; height: 8px; border-radius: 50%;
-            background: var(--lemon);
-            top: 50%; left: 50%; transform: translate(-50%, -50%);
-        }
-        @keyframes decoFloat {
-            0% { transform: translateY(110vh) rotate(0deg); }
-            100% { transform: translateY(-10vh) rotate(360deg); }
-        }
-        @keyframes butterflyFloat {
-            0% { transform: translateY(110vh) translateX(0); }
-            25% { transform: translateY(75vh) translateX(30px); }
-            50% { transform: translateY(50vh) translateX(-20px); }
-            75% { transform: translateY(25vh) translateX(25px); }
-            100% { transform: translateY(-10vh) translateX(0); }
-        }
-        @keyframes wingFlap {
-            0% { transform: scaleX(1); }
-            100% { transform: scaleX(0.3); }
-        }
+        /* ── DECOS ── */
+        .deco-layer { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+        .deco-star,.deco-heart-sm,.deco-butterfly,.deco-moon,.deco-flower { position: absolute; opacity:.30; animation: decoFloat linear infinite; }
+        .deco-star { width:18px;height:18px; clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%); background:var(--lemon); }
+        .deco-heart-sm { width:14px;height:14px; transform:rotate(45deg); background:var(--pink); border-radius:4px 4px 1px 4px; }
+        .deco-heart-sm::before,.deco-heart-sm::after { content:""; position:absolute; width:14px;height:14px; border-radius:50%; background:inherit; }
+        .deco-heart-sm::before { left:-7px;top:0; } .deco-heart-sm::after { left:0;top:-7px; }
+        .deco-butterfly { width:22px;height:16px; animation-name:butterflyFloat; }
+        .deco-butterfly::before,.deco-butterfly::after { content:""; position:absolute; width:10px;height:14px; border-radius:50% 50% 50% 0; background:var(--lilac); top:0; animation:wingFlap 0.4s ease-in-out infinite alternate; }
+        .deco-butterfly::before { left:1px; transform-origin:right center; }
+        .deco-butterfly::after { right:1px; border-radius:50% 50% 0 50%; transform-origin:left center; animation-direction:alternate-reverse; }
+        .deco-moon { width:24px;height:24px; border-radius:50%; background:var(--lemon); box-shadow:-6px -2px 0 0 var(--cream); }
+        .deco-flower { width:20px;height:20px; background:var(--pink); border-radius:50%; box-shadow:-8px 0 0 -2px var(--pink),8px 0 0 -2px var(--pink),0 -8px 0 -2px var(--pink),0 8px 0 -2px var(--pink); }
+        .deco-flower::after { content:""; position:absolute; width:8px;height:8px; border-radius:50%; background:var(--lemon); top:50%;left:50%; transform:translate(-50%,-50%); }
+        @keyframes decoFloat { 0%{transform:translateY(110vh) rotate(0deg)} 100%{transform:translateY(-10vh) rotate(360deg)} }
+        @keyframes butterflyFloat { 0%{transform:translateY(110vh) translateX(0)} 25%{transform:translateY(75vh) translateX(30px)} 50%{transform:translateY(50vh) translateX(-20px)} 75%{transform:translateY(25vh) translateX(25px)} 100%{transform:translateY(-10vh) translateX(0)} }
+        @keyframes wingFlap { 0%{transform:scaleX(1)} 100%{transform:scaleX(0.3)} }
 
-        .cloud {
-            position: fixed;
-            border-radius: 999px;
-            opacity: 0.35;
-            filter: blur(0.5px);
-            animation: drift 18s ease-in-out infinite alternate;
-            z-index: 0;
-        }
-        .cloud::before, .cloud::after {
-            content: ""; position: absolute;
-            border-radius: inherit; background: inherit;
-        }
-        .cloud::before { width: 48%; height: 95%; left: 16%; top: -48%; }
-        .cloud::after { width: 55%; height: 110%; right: 10%; top: -58%; }
-        .cloud.a { width: 180px; height: 62px; left: -40px; top: 8%; background: rgba(255,255,255,0.72); }
-        .cloud.b { width: 150px; height: 55px; right: -30px; top: 58%; background: rgba(255,240,251,0.76); animation-duration: 22s; }
-        .cloud.c { width: 130px; height: 48px; left: 20%; bottom: 8%; background: rgba(255,246,206,0.62); animation-duration: 25s; }
-        .cloud.d { width: 110px; height: 42px; right: 15%; top: 30%; background: rgba(218,193,255,0.50); animation-duration: 20s; }
-        @keyframes drift {
-            from { transform: translate3d(-10px, 0, 0); }
-            to { transform: translate3d(20px, 14px, 0); }
-        }
+        /* ── CLOUDS ── */
+        .cloud { position:fixed; border-radius:999px; opacity:.35; filter:blur(0.5px); animation:drift 18s ease-in-out infinite alternate; z-index:0; }
+        .cloud::before,.cloud::after { content:""; position:absolute; border-radius:inherit; background:inherit; }
+        .cloud::before { width:48%;height:95%;left:16%;top:-48%; } .cloud::after { width:55%;height:110%;right:10%;top:-58%; }
+        .cloud.a { width:180px;height:62px;left:-40px;top:8%;background:rgba(255,255,255,0.72); }
+        .cloud.b { width:150px;height:55px;right:-30px;top:58%;background:rgba(255,240,251,0.76);animation-duration:22s; }
+        .cloud.c { width:130px;height:48px;left:20%;bottom:8%;background:rgba(255,246,206,0.62);animation-duration:25s; }
+        .cloud.d { width:110px;height:42px;right:15%;top:30%;background:rgba(218,193,255,0.50);animation-duration:20s; }
+        @keyframes drift { from{transform:translate3d(-10px,0,0)} to{transform:translate3d(20px,14px,0)} }
 
-        .app {
-            position: relative;
-            width: 100%;
-            min-height: 100svh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px 16px;
-            z-index: 1;
-        }
-
+        /* ── APP / CARD ── */
+        .app { position:relative; width:100%; min-height:100svh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:20px 16px; z-index:1; }
         .card-frame {
-            width: 100%;
-            max-width: 520px;
-            min-height: min(92vh, 820px);
-            position: relative;
-            overflow: hidden;
-            border-radius: 42px;
-            padding: 24px 22px 28px;
-            background:
-                linear-gradient(145deg, rgba(255,255,255,0.78), rgba(255,218,238,0.55)),
-                radial-gradient(circle at 14% 10%, rgba(255,255,255,0.90), transparent 34%);
-            box-shadow:
-                0 36px 90px rgba(104,36,79,0.22),
-                inset 0 0 0 2.5px rgba(255,255,255,0.72);
-            border: 1.5px solid rgba(255,255,255,0.78);
-            display: flex;
-            flex-direction: column;
+            width:100%; max-width:520px; min-height:min(92vh,820px); position:relative; overflow:hidden; border-radius:42px; padding:24px 22px 28px;
+            background: linear-gradient(145deg,rgba(255,255,255,0.78),rgba(255,218,238,0.55)), radial-gradient(circle at 14% 10%,rgba(255,255,255,0.90),transparent 34%);
+            box-shadow: 0 36px 90px rgba(104,36,79,0.22), inset 0 0 0 2.5px rgba(255,255,255,0.72);
+            border:1.5px solid rgba(255,255,255,0.78); display:flex; flex-direction:column;
         }
-        .card-frame::before {
-            content: ""; position: absolute; inset: 12px;
-            border-radius: 34px;
-            border: 1.5px solid rgba(255,255,255,0.40);
-            pointer-events: none; z-index: 10;
-        }
+        .card-frame::before { content:""; position:absolute; inset:12px; border-radius:34px; border:1.5px solid rgba(255,255,255,0.40); pointer-events:none; z-index:10; }
 
-        .topbar {
-            position: relative; z-index: 12;
-            display: flex; align-items: center; justify-content: space-between;
-            gap: 10px;
-            margin-bottom: 18px;
-            flex-shrink: 0;
-        }
-        .badge, .progress-pill {
-            min-height: 40px;
-            display: inline-flex; align-items: center; gap: 8px;
-            padding: 8px 14px; border-radius: 999px;
-            background: rgba(255,255,255,0.60);
-            box-shadow: var(--clay-sm);
-            color: var(--soft-ink);
-            font-size: 0.84rem; font-weight: 800;
-            white-space: nowrap;
-        }
-        .badge-dot {
-            width: 12px; height: 12px; border-radius: 50%;
-            background: var(--mint); flex-shrink: 0;
-            box-shadow: inset -2px -2px 5px rgba(46,164,124,0.20), inset 2px 2px 5px rgba(255,255,255,0.65);
-            animation: pulse 2s ease-in-out infinite;
-        }
-        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.18); } }
-        .progress-pill { width: 140px; padding: 8px 10px; }
-        .progress-track {
-            width: 100%; height: 14px; border-radius: 99px; overflow: hidden;
-            background: rgba(255,255,255,0.65);
-            box-shadow: inset 3px 4px 10px rgba(157,72,115,0.14);
-        }
-        .progress-fill {
-            width: 0%; height: 100%; border-radius: inherit;
-            background: linear-gradient(90deg, var(--pink), var(--peach), var(--lemon));
-            transition: width 500ms cubic-bezier(.2,.85,.2,1);
-            position: relative;
-        }
-        .progress-fill::after {
-            content: ""; position: absolute;
-            right: 2px; top: 2px; bottom: 2px; width: 6px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.80);
-            box-shadow: 0 0 6px rgba(255,255,255,0.6);
-        }
+        /* ── TOPBAR ── */
+        .topbar { position:relative;z-index:12; display:flex;align-items:center;justify-content:space-between; gap:10px; margin-bottom:18px; flex-shrink:0; }
+        .badge,.progress-pill { min-height:40px; display:inline-flex;align-items:center;gap:8px; padding:8px 14px; border-radius:999px; background:rgba(255,255,255,0.60); box-shadow:var(--clay-sm); color:var(--soft-ink); font-size:.84rem;font-weight:800; white-space:nowrap; }
+        .badge-dot { width:12px;height:12px;border-radius:50%; background:var(--mint);flex-shrink:0; box-shadow:inset -2px -2px 5px rgba(46,164,124,0.20),inset 2px 2px 5px rgba(255,255,255,0.65); animation:pulse 2s ease-in-out infinite; }
+        @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.18)} }
+        .progress-pill { width:140px;padding:8px 10px; }
+        .progress-track { width:100%;height:14px;border-radius:99px;overflow:hidden; background:rgba(255,255,255,0.65); box-shadow:inset 3px 4px 10px rgba(157,72,115,0.14); }
+        .progress-fill { width:0%;height:100%;border-radius:inherit; background:linear-gradient(90deg,var(--pink),var(--peach),var(--lemon)); transition:width 500ms cubic-bezier(.2,.85,.2,1); position:relative; }
+        .progress-fill::after { content:""; position:absolute; right:2px;top:2px;bottom:2px;width:6px; border-radius:50%; background:rgba(255,255,255,0.80); }
 
-        .screen-wrap {
-            position: relative;
-            flex: 1 1 0%;
-            min-height: 0;
-        }
+        /* ── SCREEN WRAP / SCREENS ── */
+        .screen-wrap { position:relative; flex:1 1 0%; min-height:0; }
+        .screen { position:absolute; inset:0; display:flex; flex-direction:column; align-content:center; justify-content:center; gap:18px; opacity:0; transform:translateY(28px) scale(0.97); pointer-events:none; transition:opacity 460ms ease,transform 460ms cubic-bezier(.2,.85,.2,1); z-index:2; padding:4px 0; }
+        .screen.active { opacity:1;transform:translateY(0) scale(1); pointer-events:auto;z-index:5; }
 
-        .screen {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            flex-direction: column;
-            align-content: center;
-            justify-content: center;
-            gap: 20px;
-            opacity: 0;
-            transform: translateY(28px) scale(0.97);
-            pointer-events: none;
-            transition: opacity 460ms ease, transform 460ms cubic-bezier(.2,.85,.2,1);
-            z-index: 2;
-            padding: 4px 0;
+        /* ── BUTTONS ── */
+        .primary-btn,.choice-btn,.tiny-btn {
+            position:relative; min-height:56px; border-radius:22px; padding:13px 22px;
+            background:linear-gradient(145deg,#ff9bc8,#ff5fa8); color:var(--white);
+            box-shadow:var(--clay); font-weight:800;font-size:1.05rem; letter-spacing:.02em;
+            transition:transform 200ms ease,filter 200ms ease,box-shadow 200ms ease; overflow:hidden;
         }
-        .screen.active {
-            opacity: 1; transform: translateY(0) scale(1);
-            pointer-events: auto; z-index: 5;
-        }
+        .primary-btn::after,.choice-btn::after,.tiny-btn::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg,rgba(255,255,255,0.25) 0%,transparent 60%); border-radius:inherit; pointer-events:none; }
+        .primary-btn:hover,.choice-btn.yes:hover { transform:translateY(-3px) scale(1.02); box-shadow:0 28px 65px rgba(233,68,147,0.35),inset -8px -10px 22px rgba(174,53,112,0.14),inset 10px 12px 26px rgba(255,255,255,0.60); }
+        .primary-btn:active,.choice-btn:active,.tiny-btn:active { transform:translateY(2px) scale(0.97); filter:brightness(0.95); }
+        .primary-btn { min-width:min(100%,280px); margin-top:4px; font-family:'Baloo 2',cursive; font-size:1.15rem; align-self:center; }
 
-        .hero-art {
-            position: relative;
-            min-height: 280px;
-            display: grid; place-items: center;
-            flex-shrink: 0;
+        /* ── INNER CARD ── */
+        .inner-card {
+            position:relative; overflow:hidden; flex:1 1 0%; min-height:0; border-radius:34px; padding:20px;
+            background: linear-gradient(145deg,rgba(255,255,255,0.72),rgba(255,224,238,0.58)), radial-gradient(circle at 12% 12%,rgba(255,255,255,0.85),transparent 34%);
+            box-shadow:var(--clay); display:flex; flex-direction:column; gap:14px;
         }
-        .main-photo {
-            width: min(56vw, 210px);
-            aspect-ratio: 1;
-            border-radius: 38% 62% 48% 52% / 54% 38% 62% 46%;
-            object-fit: cover;
-            box-shadow: var(--clay), 0 0 0 9px rgba(255,255,255,0.30);
-            animation: blobFloat 6s ease-in-out infinite;
-            background: linear-gradient(135deg, var(--blush), var(--lilac));
-        }
-        .mini-photo {
-            position: absolute;
-            width: 90px; aspect-ratio: 1;
-            object-fit: cover; border-radius: 26px;
-            box-shadow: var(--clay-sm);
-            border: 4px solid rgba(255,255,255,0.65);
-            animation: bob 5s ease-in-out infinite;
-            background: linear-gradient(135deg, var(--peach), var(--lemon));
-        }
-        .mini-photo.one { left: 2%; top: 10%; transform: rotate(-10deg); }
-        .mini-photo.two { right: 0%; bottom: 6%; width: 105px; transform: rotate(9deg); animation-delay: -1.3s; }
+        .inner-card::before { content:""; position:absolute; inset:auto -24px -44px auto; width:160px;height:160px; border-radius:45% 55% 50% 50%; background:rgba(255,232,148,0.42); animation:blobFloat 7s ease-in-out infinite; pointer-events:none; }
+        .inner-card::after { content:""; position:absolute; top:-26px;left:-26px; width:110px;height:110px; border-radius:50%; background:rgba(169,239,214,0.28); animation:blobFloat 9s ease-in-out infinite reverse; pointer-events:none; }
 
-        .squish {
-            position: absolute;
-            display: grid; place-items: center;
-            font-size: 1.3rem;
-            color: var(--pink-deep);
-            font-weight: 900;
-            box-shadow: var(--clay-sm);
-            background: linear-gradient(145deg, #fff, #ffd4e7);
-            border-radius: 999px;
-            animation: bounceSoft 2.2s ease-in-out infinite;
-        }
-        .squish.sm { width: 52px; height: 52px; left: 4%; bottom: 0%; }
-        .squish.lg { width: 66px; height: 66px; right: 4%; top: -2%; animation-delay: -0.8s; font-size: 1.5rem; }
-        .squish.md { width: 44px; height: 44px; right: 16%; bottom: 14%; animation-delay: -1.5s; font-size: 1rem; }
+        .chip { display:inline-flex;align-items:center;justify-content:center; min-height:32px;padding:6px 14px; border-radius:999px; background:rgba(255,255,255,0.60);color:var(--pink-deep); font-size:.78rem;font-weight:900; box-shadow:var(--clay-sm); align-self:center; }
+        .section-title { font-family:'Baloo 2',cursive; font-size:clamp(1.4rem,6vw,2.2rem); line-height:1.05; color:var(--ink); text-align:center; text-wrap:balance; }
+        .section-title .hl { color:var(--pink-deep); }
+        .subtitle { color:var(--soft-ink); font-size:.94rem;line-height:1.52;font-weight:700; text-align:center; max-width:34ch; align-self:center; }
 
-        .sparkle-ring {
-            position: absolute;
-            width: min(64vw, 270px); height: min(64vw, 270px);
-            top: 50%; left: 50%; transform: translate(-50%, -50%);
-            border-radius: 50%;
-            border: 2px dashed rgba(255,121,180,0.22);
-            animation: spinSlow 20s linear infinite;
-            pointer-events: none;
-        }
-        .sparkle-ring::before, .sparkle-ring::after {
-            content: "\2726"; position: absolute;
-            font-size: 15px; color: var(--lemon);
-        }
-        .sparkle-ring::before { top: -10px; left: 50%; transform: translateX(-50%); }
-        .sparkle-ring::after { bottom: -10px; left: 50%; transform: translateX(-50%); }
-        @keyframes spinSlow { to { transform: translate(-50%, -50%) rotate(360deg); } }
+        .bunny-watermark { position:absolute; bottom:10px;right:14px; font-size:1.4rem; opacity:.28; animation:bunnyWiggle 3s ease-in-out infinite; z-index:2;pointer-events:none; }
+        @keyframes bunnyWiggle { 0%,100%{transform:rotate(0deg)} 25%{transform:rotate(6deg)} 75%{transform:rotate(-6deg)} }
 
-        .copy { text-align: center; display: grid; gap: 12px; justify-items: center; }
-        h1, h2, p { margin: 0; }
-        h1 {
-            max-width: 14ch;
-            font-family: 'Baloo 2', cursive;
-            font-size: clamp(1.9rem, 8.5vw, 3.2rem);
-            line-height: 1.0;
-            color: var(--ink);
-            text-wrap: balance;
-        }
-        h1 .hl { color: var(--pink-deep); position: relative; }
-        h1 .hl::after {
-            content: ""; position: absolute;
-            bottom: 2px; left: -3px; right: -3px; height: 7px;
-            background: rgba(255,121,180,0.20);
-            border-radius: 4px; z-index: -1;
-        }
-        h2 {
-            font-family: 'Baloo 2', cursive;
-            font-size: clamp(1.4rem, 6vw, 2.3rem);
-            line-height: 1.05;
-            color: var(--ink);
-            text-wrap: balance;
-        }
-        .subtitle {
-            max-width: 34ch;
-            color: var(--soft-ink);
-            font-size: 0.96rem;
-            line-height: 1.52;
-            font-weight: 700;
-        }
+        /* ══════════════════════════════════════
+           SCREEN 1 — COVER
+        ══════════════════════════════════════ */
+        .hero-art { position:relative; min-height:260px; display:grid;place-items:center; flex-shrink:0; }
+        .main-photo { width:min(56vw,200px); aspect-ratio:1; border-radius:38% 62% 48% 52% / 54% 38% 62% 46%; object-fit:cover; box-shadow:var(--clay),0 0 0 9px rgba(255,255,255,0.30); animation:blobFloat 6s ease-in-out infinite; background:linear-gradient(135deg,var(--blush),var(--lilac)); }
+        .mini-photo { position:absolute; width:88px;aspect-ratio:1; object-fit:cover;border-radius:26px; box-shadow:var(--clay-sm); border:4px solid rgba(255,255,255,0.65); animation:bob 5s ease-in-out infinite; background:linear-gradient(135deg,var(--peach),var(--lemon)); }
+        .mini-photo.one { left:2%;top:10%;transform:rotate(-10deg); }
+        .mini-photo.two { right:0%;bottom:6%;width:100px;transform:rotate(9deg);animation-delay:-1.3s; }
+        .squish { position:absolute; display:grid;place-items:center; font-size:1.3rem; color:var(--pink-deep); font-weight:900; box-shadow:var(--clay-sm); background:linear-gradient(145deg,#fff,#ffd4e7); border-radius:999px; animation:bounceSoft 2.2s ease-in-out infinite; }
+        .squish.sm { width:50px;height:50px;left:4%;bottom:0%; }
+        .squish.lg { width:64px;height:64px;right:4%;top:-2%;animation-delay:-.8s;font-size:1.5rem; }
+        .squish.md { width:42px;height:42px;right:16%;bottom:14%;animation-delay:-1.5s;font-size:1rem; }
+        .sparkle-ring { position:absolute; width:min(64vw,260px);height:min(64vw,260px); top:50%;left:50%;transform:translate(-50%,-50%); border-radius:50%; border:2px dashed rgba(255,121,180,0.22); animation:spinSlow 20s linear infinite; pointer-events:none; }
+        .sparkle-ring::before,.sparkle-ring::after { content:"\2726"; position:absolute; font-size:15px;color:var(--lemon); }
+        .sparkle-ring::before { top:-10px;left:50%;transform:translateX(-50%); }
+        .sparkle-ring::after { bottom:-10px;left:50%;transform:translateX(-50%); }
+        @keyframes spinSlow { to{transform:translate(-50%,-50%) rotate(360deg)} }
+        .cover-copy { text-align:center;display:grid;gap:10px;justify-items:center; }
+        .cover-title { font-family:'Baloo 2',cursive; font-size:clamp(2rem,9vw,3.4rem); line-height:.98; color:var(--ink); text-wrap:balance; }
+        .cover-title .hl { color:var(--pink-deep); position:relative; }
+        .cover-title .hl::after { content:""; position:absolute; bottom:2px;left:-3px;right:-3px;height:7px; background:rgba(255,121,180,0.20); border-radius:4px;z-index:-1; }
 
-        .primary-btn, .choice-btn, .tiny-btn {
-            position: relative;
-            min-height: 58px;
-            border-radius: 24px;
-            padding: 14px 24px;
-            background: linear-gradient(145deg, #ff9bc8, #ff5fa8);
-            color: var(--white);
-            box-shadow: var(--clay);
-            font-weight: 800;
-            font-size: 1.1rem;
-            letter-spacing: 0.02em;
-            transition: transform 200ms ease, filter 200ms ease, box-shadow 200ms ease;
-            overflow: hidden;
+        /* ══════════════════════════════════════
+           SCREEN 2 — BREAKING NEWS
+        ══════════════════════════════════════ */
+        .news-wrap { display:flex;flex-direction:column;gap:14px;flex:1 1 0%;min-height:0;overflow:hidden; }
+        .tv-frame {
+            flex:1 1 0%;min-height:0; border-radius:28px; overflow:hidden; position:relative;
+            background:linear-gradient(135deg,#1a0a2e,#3d1060);
+            box-shadow:var(--clay),inset 0 0 60px rgba(255,100,180,0.08);
+            display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:20px;
         }
-        .primary-btn::after, .choice-btn::after, .tiny-btn::after {
-            content: ""; position: absolute; inset: 0;
-            background: linear-gradient(180deg, rgba(255,255,255,0.25) 0%, transparent 60%);
-            border-radius: inherit; pointer-events: none;
-        }
-        .primary-btn:hover, .choice-btn.yes:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 28px 65px rgba(233,68,147,0.35), inset -8px -10px 22px rgba(174,53,112,0.14), inset 10px 12px 26px rgba(255,255,255,0.60);
-        }
-        .primary-btn:active, .choice-btn:active, .tiny-btn:active {
-            transform: translateY(2px) scale(0.97);
-            filter: brightness(0.95);
-        }
-        .primary-btn {
-            min-width: min(100%, 280px);
-            margin-top: 4px;
-            font-family: 'Baloo 2', cursive;
-            font-size: 1.2rem;
-        }
+        .tv-scanline { position:absolute;inset:0; background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(255,255,255,0.02) 2px,rgba(255,255,255,0.02) 4px); pointer-events:none; z-index:1; }
+        .news-badge { display:inline-flex;gap:8px;align-items:center; padding:6px 14px;border-radius:999px; background:#ff2d6f;color:#fff; font-size:.78rem;font-weight:900;letter-spacing:.06em; animation:pulse 1.2s infinite; z-index:2; }
+        .news-headline { font-family:'Baloo 2',cursive; font-size:clamp(1.3rem,6vw,2rem); color:#fff; text-align:center;line-height:1.1; text-wrap:balance; z-index:2; }
+        .news-headline .accent { color:var(--lemon); }
+        .news-sub { color:rgba(255,255,255,0.70); font-size:.82rem;font-weight:700; text-align:center; z-index:2; max-width:28ch; }
+        .ticker-wrap { border-radius:16px; background:rgba(255,45,111,0.90); padding:8px 14px; overflow:hidden; position:relative; flex-shrink:0; }
+        .ticker-inner { display:flex;gap:40px;white-space:nowrap; animation:tickerScroll 18s linear infinite; color:#fff;font-size:.78rem;font-weight:900; }
+        .ticker-item::before { content:"🔴 "; }
+        @keyframes tickerScroll { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+        .news-photo { width:80px;aspect-ratio:1;border-radius:50%;object-fit:cover; border:3px solid rgba(255,255,255,0.30); z-index:2; animation:finalGlow 2s infinite; flex-shrink:0; }
 
-        .game-card {
-            position: relative; overflow: hidden;
-            flex: 1 1 0%;
-            min-height: 0;
-            border-radius: 34px; padding: 20px;
-            background:
-                linear-gradient(145deg, rgba(255,255,255,0.72), rgba(255,224,238,0.58)),
-                radial-gradient(circle at 12% 12%, rgba(255,255,255,0.85), transparent 34%);
-            box-shadow: var(--clay);
-            display: flex; flex-direction: column;
-            gap: 14px;
+        /* ══════════════════════════════════════
+           SCREEN 3 — FUN FACTS CAROUSEL
+        ══════════════════════════════════════ */
+        .facts-area { flex:1 1 0%;min-height:0; position:relative; }
+        .fact-card {
+            position:absolute;inset:0; border-radius:28px; padding:22px;
+            background:linear-gradient(145deg,rgba(255,255,255,0.80),rgba(255,224,238,0.60));
+            box-shadow:var(--clay-sm); display:flex;flex-direction:column;gap:16px;align-items:center;justify-content:center; text-align:center;
+            opacity:0;transform:translateX(60px) scale(0.96);transition:opacity 380ms ease,transform 380ms cubic-bezier(.2,.85,.2,1);pointer-events:none;
         }
-        .game-card::before {
-            content: ""; position: absolute;
-            inset: auto -24px -44px auto;
-            width: 160px; height: 160px;
-            border-radius: 45% 55% 50% 50%;
-            background: rgba(255,232,148,0.42);
-            animation: blobFloat 7s ease-in-out infinite;
-            pointer-events: none;
-        }
-        .game-card::after {
-            content: ""; position: absolute;
-            top: -26px; left: -26px;
-            width: 110px; height: 110px;
-            border-radius: 50%;
-            background: rgba(169,239,214,0.28);
-            animation: blobFloat 9s ease-in-out infinite reverse;
-            pointer-events: none;
-        }
+        .fact-card.visible { opacity:1;transform:translateX(0) scale(1);pointer-events:auto; }
+        .fact-card.exit-left { opacity:0;transform:translateX(-60px) scale(0.96); }
+        .fact-emoji { font-size:2.8rem;line-height:1; }
+        .fact-text { font-family:'Baloo 2',cursive; font-size:clamp(1.1rem,4.5vw,1.6rem); color:var(--ink);line-height:1.2;text-wrap:balance; }
+        .fact-caption { color:var(--soft-ink);font-size:.84rem;font-weight:700;line-height:1.4; max-width:28ch; }
+        .fact-nav { display:flex;align-items:center;justify-content:space-between;gap:12px;flex-shrink:0; }
+        .nav-btn { width:48px;height:48px;border-radius:50%; background:rgba(255,255,255,0.70);box-shadow:var(--clay-sm); font-size:1.4rem; display:grid;place-items:center; transition:transform 180ms ease; flex-shrink:0; }
+        .nav-btn:hover { transform:scale(1.08); }
+        .dot-row { display:flex;gap:8px;align-items:center; }
+        .dot { width:10px;height:10px;border-radius:50%; background:rgba(233,68,147,0.20); transition:all 300ms ease; }
+        .dot.active { background:var(--pink-deep);width:24px;border-radius:999px; }
 
-        .question-head {
-            position: relative; z-index: 2;
-            display: flex; flex-direction: column;
-            gap: 8px; text-align: center; align-items: center;
-            flex-shrink: 0;
+        /* ══════════════════════════════════════
+           SCREEN 4 — LOVE LETTER
+        ══════════════════════════════════════ */
+        .letter-paper {
+            flex:1 1 0%;min-height:0; border-radius:28px; padding:22px 20px;
+            background:linear-gradient(150deg,rgba(255,255,255,0.88),rgba(255,232,246,0.70));
+            box-shadow:var(--clay-sm);
+            position:relative;overflow:hidden;
+            display:flex;flex-direction:column;gap:10px;
         }
-        .round-chip {
-            display: inline-flex; align-items: center; justify-content: center;
-            min-height: 34px; padding: 7px 14px;
-            border-radius: 999px;
-            background: rgba(255,255,255,0.60);
-            color: var(--pink-deep);
-            font-size: 0.80rem; font-weight: 900;
-            box-shadow: var(--clay-sm);
-        }
-        .question-text {
-            min-height: 80px;
-            display: flex; align-items: center;
-        }
+        .letter-paper::before { content:""; position:absolute;top:0;bottom:0;left:56px; border-left:2px solid rgba(255,121,180,0.20); pointer-events:none; }
+        .letter-lines { flex:1 1 0%;overflow-y:auto; }
+        .letter-line { display:flex;align-items:baseline;gap:10px;min-height:32px;padding:2px 0; border-bottom:1px solid rgba(255,180,210,0.18); }
+        .line-num { width:32px;text-align:right;flex-shrink:0; color:rgba(233,68,147,0.30);font-size:.72rem;font-weight:700; }
+        .letter-text { color:var(--ink);font-size:.90rem;font-weight:700;line-height:1.5; }
+        .cursor-blink { display:inline-block;width:2px;height:1em; background:var(--pink-deep); margin-left:2px; animation:blink .7s step-end infinite;vertical-align:text-bottom; }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+        .letter-footer { display:flex;justify-content:flex-end; font-size:.80rem;font-weight:900;color:var(--soft-ink); flex-shrink:0; }
 
-        .play-area {
-            position: relative; z-index: 2;
-            flex: 1 1 0%;
-            min-height: 180px;
-            border-radius: 28px;
-            background:
-                radial-gradient(circle at 20% 18%, rgba(255,255,255,0.80), transparent 28%),
-                linear-gradient(155deg, rgba(255,247,251,0.80), rgba(255,206,228,0.48));
-            box-shadow: inset 8px 10px 20px rgba(169,72,121,0.10), inset -8px -10px 20px rgba(255,255,255,0.65);
-            overflow: hidden;
-        }
-        .memory-orbit { position: absolute; inset: 0; }
-        .memory-tile {
-            position: absolute;
-            width: 90px; aspect-ratio: 1;
-            object-fit: cover; border-radius: 26px;
-            border: 4px solid rgba(255,255,255,0.60);
-            box-shadow: var(--clay-sm);
-            animation: tileDance 7s ease-in-out infinite;
-            background: linear-gradient(135deg, var(--blush), var(--lilac));
-        }
-        .memory-tile:nth-child(1) { left: 5%; top: 6%; transform: rotate(-8deg); }
-        .memory-tile:nth-child(2) { right: 5%; top: 16%; width: 82px; transform: rotate(9deg); animation-delay: -1.4s; }
-        .memory-tile:nth-child(3) { left: 28%; bottom: 5%; width: 100px; transform: rotate(5deg); animation-delay: -2.2s; }
+        /* ══════════════════════════════════════
+           SCREEN 5 — FAKE SLIDER QUIZ
+        ══════════════════════════════════════ */
+        .quiz-area { flex:1 1 0%;min-height:0; display:flex;flex-direction:column;gap:18px;justify-content:center; }
+        .quiz-q { font-family:'Baloo 2',cursive; font-size:clamp(1.1rem,5vw,1.7rem); color:var(--ink);text-align:center;line-height:1.15;text-wrap:balance; }
+        .slider-wrap { display:grid;gap:10px; }
+        .slider-labels { display:flex;justify-content:space-between; color:var(--soft-ink);font-size:.80rem;font-weight:800; }
+        .love-slider { width:100%;-webkit-appearance:none;appearance:none; height:22px;border-radius:999px; background:linear-gradient(90deg,var(--pink) 0%,var(--pink) var(--val,50%),rgba(255,255,255,0.60) var(--val,50%)); box-shadow:var(--clay-sm); outline:none;cursor:grab; transition:background .1s; }
+        .love-slider::-webkit-slider-thumb { -webkit-appearance:none;appearance:none; width:36px;height:36px;border-radius:50%; background:linear-gradient(145deg,#fff,#ffd4e7); box-shadow:var(--clay-sm); cursor:grab; border:3px solid rgba(255,121,180,0.40); transition:transform .15s; }
+        .love-slider::-moz-range-thumb { width:34px;height:34px;border-radius:50%; background:linear-gradient(145deg,#fff,#ffd4e7); box-shadow:var(--clay-sm); cursor:grab; border:3px solid rgba(255,121,180,0.40); }
+        .slider-reaction { min-height:64px;border-radius:22px; background:rgba(255,255,255,0.65);box-shadow:var(--clay-sm); display:flex;align-items:center;justify-content:center; padding:12px 16px; }
+        .reaction-text { font-family:'Baloo 2',cursive; font-size:clamp(1rem,4.5vw,1.4rem); text-align:center;color:var(--pink-deep);line-height:1.2; }
+        .slider-val-display { text-align:center;font-family:'Baloo 2',cursive;font-size:2.2rem;font-weight:800;color:var(--pink-deep); text-shadow:0 2px 12px rgba(233,68,147,0.22); }
 
-        .floating-note {
-            position: absolute; left: 50%; top: 50%;
-            width: min(78%, 270px);
-            transform: translate(-50%, -50%);
-            padding: 14px; border-radius: 24px;
-            background: rgba(255,255,255,0.72);
-            box-shadow: var(--clay-sm);
-            text-align: center;
-            color: var(--soft-ink);
-            font-weight: 800;
-            font-size: 0.88rem;
-            line-height: 1.40;
+        /* ══════════════════════════════════════
+           SCREEN 6 — "ARE YOU READY?" CONFESSION
+        ══════════════════════════════════════ */
+        .confession-area { flex:1 1 0%;min-height:0; border-radius:28px; padding:22px;
+            background:linear-gradient(145deg,rgba(255,255,255,0.75),rgba(255,213,232,0.60));
+            box-shadow:var(--clay-sm); display:flex;flex-direction:column;gap:16px;align-items:center;justify-content:center;text-align:center;
+            position:relative;overflow:hidden;
         }
+        .confession-photo { width:110px;aspect-ratio:1;border-radius:26px;object-fit:cover; box-shadow:var(--clay-sm); border:4px solid rgba(255,255,255,0.65); animation:finalGlow 3s ease-in-out infinite; }
+        .confession-title { font-family:'Baloo 2',cursive; font-size:clamp(1.4rem,6vw,2rem); color:var(--ink);line-height:1.1; }
+        .confession-copy { color:var(--soft-ink);font-size:.92rem;font-weight:700;line-height:1.55;max-width:30ch; }
+        .reason-pills { display:flex;flex-wrap:wrap;gap:8px;justify-content:center; }
+        .reason-pill { padding:7px 14px;border-radius:999px; background:rgba(255,255,255,0.72);box-shadow:var(--clay-sm); color:var(--pink-deep);font-size:.80rem;font-weight:900; animation:bounceSoft 2.5s ease-in-out infinite; }
+        .reason-pill:nth-child(2){animation-delay:-.4s} .reason-pill:nth-child(3){animation-delay:-.8s} .reason-pill:nth-child(4){animation-delay:-1.2s} .reason-pill:nth-child(5){animation-delay:-1.6s}
 
-        .love-meter {
-            display: grid; gap: 8px; padding: 12px 14px;
-            border-radius: 24px;
-            background: rgba(255,255,255,0.50);
-            box-shadow: var(--clay-sm);
-            position: relative; z-index: 2;
-            flex-shrink: 0;
+        /* ══════════════════════════════════════
+           SCREEN 7 — GAME WARN
+        ══════════════════════════════════════ */
+        .warn-area { flex:1 1 0%;min-height:0; border-radius:28px; padding:22px;
+            background:linear-gradient(145deg,rgba(255,255,255,0.75),rgba(255,232,148,0.40));
+            box-shadow:var(--clay-sm); display:flex;flex-direction:column;gap:14px;align-items:center;justify-content:center;text-align:center;
         }
-        .meter-label {
-            display: flex; justify-content: space-between; gap: 10px;
-            color: var(--soft-ink); font-size: 0.82rem; font-weight: 900;
-        }
-        .meter-track {
-            height: 20px; border-radius: 999px;
-            background: rgba(255,255,255,0.62);
-            overflow: hidden;
-            box-shadow: inset 4px 5px 12px rgba(132,49,96,0.10);
-        }
-        .meter-fill {
-            height: 100%; width: 12%; border-radius: inherit;
-            background: linear-gradient(90deg, var(--mint), var(--lemon), var(--pink), var(--lilac));
-            background-size: 300% 100%;
-            animation: meterShimmer 3s ease-in-out infinite;
-            transition: width 650ms cubic-bezier(.2,.85,.2,1);
-            position: relative;
-        }
-        .meter-fill::after {
-            content: ""; position: absolute;
-            right: 3px; top: 3px; bottom: 3px; width: 7px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.85);
-        }
-        @keyframes meterShimmer {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
+        .warn-icon { font-size:3.5rem;animation:bounceSoft 1.5s ease-in-out infinite; }
+        .warn-rules { display:grid;gap:8px;width:100%; }
+        .rule-item { display:flex;gap:10px;align-items:center; padding:10px 14px;border-radius:18px; background:rgba(255,255,255,0.68);box-shadow:var(--clay-sm); text-align:left; }
+        .rule-icon { font-size:1.2rem;flex-shrink:0; }
+        .rule-text { font-size:.84rem;font-weight:800;color:var(--ink);line-height:1.3; }
 
-        .answer-row {
-            position: relative; z-index: 5;
-            display: grid; grid-template-columns: 1fr 1fr;
-            gap: 12px; min-height: 76px;
-            flex-shrink: 0;
-        }
-        .choice-btn {
-            min-width: 0; width: 100%; font-size: 1.05rem;
-            font-family: 'Baloo 2', cursive;
-        }
-        .choice-btn.yes { background: linear-gradient(145deg, #ff91c2, #ff4fa1); }
-        .choice-btn.no {
-            background: linear-gradient(145deg, #b7e9ff, #8dd3f7);
-            color: #2e5870;
-            transition: transform 260ms cubic-bezier(.2,.85,.2,1), left 260ms ease, top 260ms ease;
-        }
-        .choice-btn.no.escape {
-            position: absolute;
-            width: calc(50% - 6px);
-            right: 0; top: 0;
-        }
+        /* ══════════════════════════════════════
+           SCREEN 8 — GAME
+        ══════════════════════════════════════ */
+        .question-head { position:relative;z-index:2; display:flex;flex-direction:column;gap:8px;text-align:center;align-items:center; flex-shrink:0; }
+        .question-text { min-height:76px;display:flex;align-items:center; }
+        .question-text h2 { font-family:'Baloo 2',cursive; font-size:clamp(1.3rem,5.5vw,2rem);line-height:1.05;color:var(--ink);text-wrap:balance;text-align:center; }
+        .play-area { position:relative;z-index:2; flex:1 1 0%;min-height:160px; border-radius:28px; background:radial-gradient(circle at 20% 18%,rgba(255,255,255,0.80),transparent 28%),linear-gradient(155deg,rgba(255,247,251,0.80),rgba(255,206,228,0.48)); box-shadow:inset 8px 10px 20px rgba(169,72,121,0.10),inset -8px -10px 20px rgba(255,255,255,0.65); overflow:hidden; }
+        .memory-orbit { position:absolute;inset:0; }
+        .memory-tile { position:absolute; width:88px;aspect-ratio:1; object-fit:cover;border-radius:26px; border:4px solid rgba(255,255,255,0.60); box-shadow:var(--clay-sm); animation:tileDance 7s ease-in-out infinite; background:linear-gradient(135deg,var(--blush),var(--lilac)); }
+        .memory-tile:nth-child(1){left:5%;top:6%;transform:rotate(-8deg)} .memory-tile:nth-child(2){right:5%;top:16%;width:80px;transform:rotate(9deg);animation-delay:-1.4s} .memory-tile:nth-child(3){left:28%;bottom:5%;width:96px;transform:rotate(5deg);animation-delay:-2.2s}
+        .floating-note { position:absolute;left:50%;top:50%; width:min(78%,270px); transform:translate(-50%,-50%); padding:13px;border-radius:24px; background:rgba(255,255,255,0.72);box-shadow:var(--clay-sm); text-align:center;color:var(--soft-ink);font-weight:800;font-size:.88rem;line-height:1.40; }
+        .love-meter { display:grid;gap:8px;padding:12px 14px; border-radius:24px;background:rgba(255,255,255,0.50);box-shadow:var(--clay-sm); position:relative;z-index:2;flex-shrink:0; }
+        .meter-label { display:flex;justify-content:space-between;gap:10px; color:var(--soft-ink);font-size:.82rem;font-weight:900; }
+        .meter-track { height:20px;border-radius:999px; background:rgba(255,255,255,0.62); overflow:hidden; box-shadow:inset 4px 5px 12px rgba(132,49,96,0.10); }
+        .meter-fill { height:100%;width:12%;border-radius:inherit; background:linear-gradient(90deg,var(--mint),var(--lemon),var(--pink),var(--lilac));background-size:300% 100%; animation:meterShimmer 3s ease-in-out infinite; transition:width 650ms cubic-bezier(.2,.85,.2,1);position:relative; }
+        .meter-fill::after { content:""; position:absolute;right:3px;top:3px;bottom:3px;width:7px; border-radius:50%;background:rgba(255,255,255,0.85); }
+        @keyframes meterShimmer { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+        .answer-row { position:relative;z-index:5; display:grid;grid-template-columns:1fr 1fr; gap:12px;min-height:74px; flex-shrink:0; }
+        .choice-btn { min-width:0;width:100%;font-size:1rem;font-family:'Baloo 2',cursive; }
+        .choice-btn.yes { background:linear-gradient(145deg,#ff91c2,#ff4fa1); }
+        .choice-btn.no { background:linear-gradient(145deg,#b7e9ff,#8dd3f7);color:#2e5870; transition:transform 260ms cubic-bezier(.2,.85,.2,1),left 260ms ease,top 260ms ease; }
+        .choice-btn.no.escape { position:absolute;width:calc(50% - 6px);right:0;top:0; }
 
-        /* GALLERY */
-        .gallery {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px; align-items: stretch;
-            flex: 1 1 0%;
-            min-height: 0;
-        }
-        .gallery-item {
-            min-height: 140px; border-radius: 26px;
-            overflow: hidden;
-            background: linear-gradient(135deg, var(--blush), var(--sky));
-            box-shadow: var(--clay-sm);
-            position: relative;
-        }
-        .gallery-item:nth-child(1) { grid-row: span 2; }
-        .gallery-item img, .gallery-item video {
-            width: 100%; height: 100%; min-height: inherit;
-            object-fit: cover;
-        }
-        .gallery-sticker {
-            position: absolute; left: 10px; right: 10px; bottom: 10px;
-            padding: 8px 12px; border-radius: 18px;
-            background: rgba(255,255,255,0.78);
-            color: var(--pink-deep);
-            font-size: 0.78rem; font-weight: 900;
-            text-align: center;
-            box-shadow: 0 10px 24px rgba(132,49,96,0.14);
-        }
+        /* ══════════════════════════════════════
+           SCREEN 9 — GALLERY (photos)
+        ══════════════════════════════════════ */
+        .gallery { display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:stretch;flex:1 1 0%;min-height:0; }
+        .gallery-item { min-height:140px;border-radius:26px;overflow:hidden; background:linear-gradient(135deg,var(--blush),var(--sky));box-shadow:var(--clay-sm);position:relative; }
+        .gallery-item:nth-child(1) { grid-row:span 2; }
+        .gallery-item img,.gallery-item video { width:100%;height:100%;min-height:inherit;object-fit:cover; }
+        .gallery-sticker { position:absolute;left:10px;right:10px;bottom:10px; padding:7px 12px;border-radius:18px; background:rgba(255,255,255,0.78);color:var(--pink-deep); font-size:.76rem;font-weight:900;text-align:center; box-shadow:0 10px 24px rgba(132,49,96,0.14); }
 
-        /* VIDEO SCREEN */
-        .video-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            flex: 1 1 0%;
-            min-height: 0;
-        }
-        .video-item {
-            border-radius: 22px;
-            overflow: hidden;
-            background: linear-gradient(135deg, var(--lilac), var(--sky));
-            box-shadow: var(--clay-sm);
-            position: relative;
-            min-height: 115px;
-        }
-        .video-item video, .video-item img {
-            width: 100%; height: 100%; min-height: inherit;
-            object-fit: cover;
-        }
-        .video-item .gallery-sticker { font-size: 0.70rem; padding: 5px 7px; bottom: 6px; left: 6px; right: 6px; border-radius: 12px; }
+        /* ══════════════════════════════════════
+           SCREEN 10 — VIDEOS
+        ══════════════════════════════════════ */
+        .video-grid { display:grid;grid-template-columns:1fr 1fr;gap:10px;flex:1 1 0%;min-height:0; }
+        .video-item { border-radius:22px;overflow:hidden; background:linear-gradient(135deg,var(--lilac),var(--sky));box-shadow:var(--clay-sm);position:relative;min-height:115px; }
+        .video-item video { width:100%;height:100%;min-height:inherit;object-fit:cover; }
+        .video-item .gallery-sticker { font-size:.70rem;padding:5px 7px;bottom:6px;left:6px;right:6px;border-radius:12px; }
 
-        /* FINAL */
-        .final-screen { align-items: center; }
+        /* ══════════════════════════════════════
+           SCREEN 11 — FINAL
+        ══════════════════════════════════════ */
+        .final-screen { align-items:center; }
         .final-card {
-            position: relative; overflow: hidden;
-            width: 100%;
-            flex: 1 1 0%;
-            min-height: 0;
-            border-radius: 34px; padding: 22px;
-            background:
-                linear-gradient(145deg, rgba(255,255,255,0.75), rgba(255,213,232,0.68)),
-                radial-gradient(circle at 80% 12%, rgba(255,232,148,0.60), transparent 32%),
-                radial-gradient(circle at 15% 85%, rgba(218,193,255,0.40), transparent 30%);
-            box-shadow: var(--clay);
-            display: flex; flex-direction: column;
-            gap: 12px;
-            align-items: center; justify-content: center;
-            text-align: center;
-            overflow-y: auto;
+            position:relative;overflow:hidden; width:100%;flex:1 1 0%;min-height:0; border-radius:34px;padding:22px;
+            background:linear-gradient(145deg,rgba(255,255,255,0.75),rgba(255,213,232,0.68)),radial-gradient(circle at 80% 12%,rgba(255,232,148,0.60),transparent 32%),radial-gradient(circle at 15% 85%,rgba(218,193,255,0.40),transparent 30%);
+            box-shadow:var(--clay); display:flex;flex-direction:column;gap:12px; align-items:center;justify-content:center;text-align:center; overflow-y:auto;
         }
-        .crown-photo {
-            width: min(48vw, 190px); aspect-ratio: 1;
-            border-radius: 32px;
-            object-fit: cover;
-            box-shadow: var(--clay);
-            border: 7px solid rgba(255,255,255,0.50);
-            animation: finalGlow 2.8s ease-in-out infinite;
-            background: linear-gradient(135deg, var(--blush), var(--lilac));
-            flex-shrink: 0;
-        }
-        .final-crown {
-            position: absolute;
-            top: 8px; left: 50%; transform: translateX(-50%);
-            font-size: 2.6rem;
-            animation: crownBounce 1.5s ease-in-out infinite;
-            filter: drop-shadow(0 4px 8px rgba(255,200,50,0.4));
-            z-index: 2;
-        }
-        @keyframes crownBounce {
-            0%, 100% { transform: translateX(-50%) translateY(0) rotate(-3deg); }
-            50% { transform: translateX(-50%) translateY(-8px) rotate(3deg); }
-        }
-        .final-title { max-width: 14ch; }
-        .final-copy {
-            max-width: 32ch;
-            color: var(--soft-ink);
-            font-weight: 800; font-size: 0.95rem;
-            line-height: 1.50;
-        }
+        .crown-photo { width:min(48vw,190px);aspect-ratio:1; border-radius:32px;object-fit:cover; box-shadow:var(--clay); border:7px solid rgba(255,255,255,0.50); animation:finalGlow 2.8s ease-in-out infinite; flex-shrink:0; }
+        .final-crown { position:absolute;top:8px;left:50%;transform:translateX(-50%); font-size:2.6rem; animation:crownBounce 1.5s ease-in-out infinite; filter:drop-shadow(0 4px 8px rgba(255,200,50,0.4)); z-index:2; }
+        @keyframes crownBounce { 0%,100%{transform:translateX(-50%) translateY(0) rotate(-3deg)} 50%{transform:translateX(-50%) translateY(-8px) rotate(3deg)} }
+        .final-title { font-family:'Baloo 2',cursive;font-size:clamp(1.5rem,6vw,2.2rem);color:var(--ink);max-width:14ch; }
+        .final-copy { max-width:32ch;color:var(--soft-ink);font-weight:800;font-size:.94rem;line-height:1.50; }
+        .blessing-para { max-width:34ch; padding:14px 16px; border-radius:22px; background:rgba(255,255,255,0.58);box-shadow:var(--clay-sm); color:var(--ink); font-size:.84rem;font-weight:700;line-height:1.64;text-align:center;font-style:italic;flex-shrink:0; }
+        .blessing-para strong { color:var(--pink-deep);font-style:normal; }
+        .tiny-actions { display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;flex-shrink:0; }
+        .tiny-btn { min-height:52px;padding:12px 10px;border-radius:20px;font-size:.90rem; }
+        .tiny-btn.secondary { background:linear-gradient(145deg,#fff7cf,#ffdc77);color:#74552b; }
 
-        .blessing-para {
-            max-width: 34ch;
-            padding: 14px 16px;
-            border-radius: 22px;
-            background: rgba(255,255,255,0.58);
-            box-shadow: var(--clay-sm);
-            color: var(--ink);
-            font-size: 0.85rem;
-            font-weight: 700;
-            line-height: 1.62;
-            text-align: center;
-            font-style: italic;
-            flex-shrink: 0;
-        }
-        .blessing-para strong {
-            color: var(--pink-deep);
-            font-style: normal;
-        }
+        /* ── PARTICLES ── */
+        .heart-layer,.confetti-layer { position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:50; }
+        .heart { position:absolute;width:20px;height:20px;transform:rotate(45deg);background:var(--pink);border-radius:6px 6px 2px 6px;opacity:0;animation:heartRise 1.5s ease-out forwards; }
+        .heart::before,.heart::after { content:"";position:absolute;width:20px;height:20px;border-radius:50%;background:inherit; }
+        .heart::before{left:-10px;top:0} .heart::after{left:0;top:-10px}
+        .confetti { position:absolute;width:11px;height:16px;border-radius:5px;opacity:0;animation:confettiDrop 2s ease-out forwards; }
+        .confetti.circle { border-radius:50%;width:12px;height:12px; }
+        .confetti.star { width:14px;height:14px;clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%); }
+        @keyframes heartRise { 0%{opacity:0;transform:translateY(14px) rotate(45deg) scale(0.5)} 14%{opacity:1} 100%{opacity:0;transform:translateY(-130px) rotate(45deg) scale(1.2)} }
+        @keyframes confettiDrop { 0%{opacity:0;transform:translateY(-50px) rotate(0deg) scale(0.5)} 8%{opacity:1;transform:translateY(-30px) rotate(20deg) scale(1)} 100%{opacity:0;transform:translateY(140px) rotate(320deg) scale(0.3)} }
 
-        .tiny-actions {
-            display: grid; grid-template-columns: 1fr 1fr;
-            gap: 10px; width: 100%;
-            flex-shrink: 0;
-        }
-        .tiny-btn {
-            min-height: 52px; padding: 12px 10px;
-            border-radius: 20px; font-size: 0.92rem;
-        }
-        .tiny-btn.secondary {
-            background: linear-gradient(145deg, #fff7cf, #ffdc77);
-            color: #74552b;
-        }
+        /* ── TOAST ── */
+        .toast { position:fixed;left:50%;bottom:max(24px,env(safe-area-inset-bottom));z-index:60;width:min(calc(100vw - 36px),420px);min-height:50px;display:grid;place-items:center;padding:14px 18px;border-radius:22px;background:rgba(255,255,255,0.90);color:var(--pink-deep);box-shadow:0 22px 52px rgba(132,49,96,0.22),inset 4px 6px 14px rgba(255,255,255,0.75);font-size:.92rem;font-weight:800;text-align:center;transform:translate(-50%,140%);transition:transform 300ms cubic-bezier(.2,.85,.2,1); }
+        .toast.show { transform:translate(-50%,0); }
 
-        /* PARTICLES */
-        .heart-layer, .confetti-layer {
-            position: fixed; inset: 0;
-            overflow: hidden; pointer-events: none; z-index: 50;
-        }
-        .heart {
-            position: absolute;
-            width: 20px; height: 20px;
-            transform: rotate(45deg);
-            background: var(--pink);
-            border-radius: 6px 6px 2px 6px;
-            opacity: 0;
-            animation: heartRise 1.5s ease-out forwards;
-        }
-        .heart::before, .heart::after {
-            content: ""; position: absolute;
-            width: 20px; height: 20px; border-radius: 50%; background: inherit;
-        }
-        .heart::before { left: -10px; top: 0; }
-        .heart::after { left: 0; top: -10px; }
-        .confetti {
-            position: absolute;
-            width: 11px; height: 16px;
-            border-radius: 5px;
-            opacity: 0;
-            animation: confettiDrop 2s ease-out forwards;
-        }
-        .confetti.circle { border-radius: 50%; width: 12px; height: 12px; }
-        .confetti.star {
-            width: 14px; height: 14px;
-            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-        }
-        @keyframes heartRise {
-            0% { opacity: 0; transform: translateY(14px) rotate(45deg) scale(0.5); }
-            14% { opacity: 1; }
-            100% { opacity: 0; transform: translateY(-130px) rotate(45deg) scale(1.2); }
-        }
-        @keyframes confettiDrop {
-            0% { opacity: 0; transform: translateY(-50px) rotate(0deg) scale(0.5); }
-            8% { opacity: 1; transform: translateY(-30px) rotate(20deg) scale(1); }
-            100% { opacity: 0; transform: translateY(140px) rotate(320deg) scale(0.3); }
-        }
+        /* ── KEYFRAMES ── */
+        @keyframes bob { 0%,100%{translate:0 0} 50%{translate:0 -10px} }
+        @keyframes bounceSoft { 0%,100%{transform:translateY(0) scale(1)} 50%{transform:translateY(-9px) scale(1.05)} }
+        @keyframes blobFloat { 0%,100%{transform:translateY(0) rotate(-1deg);border-radius:38% 62% 48% 52% / 54% 38% 62% 46%} 50%{transform:translateY(-9px) rotate(2deg);border-radius:54% 46% 57% 43% / 40% 58% 42% 60%} }
+        @keyframes tileDance { 0%,100%{translate:0 0} 50%{translate:0 -12px} }
+        @keyframes finalGlow { 0%,100%{box-shadow:var(--clay),0 0 0 0 rgba(255,121,180,0.30)} 50%{box-shadow:var(--clay),0 0 0 14px rgba(255,121,180,0.06)} }
 
-        .toast {
-            position: fixed;
-            left: 50%; bottom: max(24px, env(safe-area-inset-bottom));
-            z-index: 60;
-            width: min(calc(100vw - 36px), 420px);
-            min-height: 50px;
-            display: grid; place-items: center;
-            padding: 14px 18px; border-radius: 22px;
-            background: rgba(255,255,255,0.90);
-            color: var(--pink-deep);
-            box-shadow: 0 22px 52px rgba(132,49,96,0.22), inset 4px 6px 14px rgba(255,255,255,0.75);
-            font-size: 0.92rem; font-weight: 800;
-            text-align: center;
-            transform: translate(-50%, 140%);
-            transition: transform 300ms cubic-bezier(.2,.85,.2,1);
+        /* ── RESPONSIVE ── */
+        @media (min-width:768px){ .app{padding:32px 24px} .card-frame{padding:28px 26px 32px;min-height:min(90vh,850px)} }
+        @media (max-width:400px){
+            .card-frame{border-radius:30px;padding:18px 14px 22px}
+            .inner-card{padding:14px;gap:10px;border-radius:28px}
+            .play-area{min-height:140px;border-radius:22px}
+            .choice-btn{min-height:50px;padding:9px 7px;font-size:.93rem}
+            .answer-row{min-height:62px;gap:10px}
+            .cover-title{font-size:1.8rem}
+            .section-title{font-size:1.4rem}
+            .fact-text{font-size:1.1rem}
+            .gallery-item{min-height:110px;border-radius:22px}
+            .blessing-para{font-size:.80rem}
         }
-        .toast.show { transform: translate(-50%, 0); }
-
-        .bunny-watermark {
-            position: absolute;
-            bottom: 10px; right: 14px;
-            font-size: 1.4rem;
-            opacity: 0.28;
-            animation: bunnyWiggle 3s ease-in-out infinite;
-            z-index: 2; pointer-events: none;
-        }
-        @keyframes bunnyWiggle {
-            0%, 100% { transform: rotate(0deg); }
-            25% { transform: rotate(6deg); }
-            75% { transform: rotate(-6deg); }
-        }
-
-        @keyframes bob {
-            0%, 100% { translate: 0 0; }
-            50% { translate: 0 -10px; }
-        }
-        @keyframes bounceSoft {
-            0%, 100% { transform: translateY(0) scale(1); }
-            50% { transform: translateY(-9px) scale(1.05); }
-        }
-        @keyframes blobFloat {
-            0%, 100% { transform: translateY(0) rotate(-1deg); border-radius: 38% 62% 48% 52% / 54% 38% 62% 46%; }
-            50% { transform: translateY(-9px) rotate(2deg); border-radius: 54% 46% 57% 43% / 40% 58% 42% 60%; }
-        }
-        @keyframes tileDance {
-            0%, 100% { translate: 0 0; }
-            50% { translate: 0 -12px; }
-        }
-        @keyframes finalGlow {
-            0%, 100% { box-shadow: var(--clay), 0 0 0 0 rgba(255,121,180,0.30); }
-            50% { box-shadow: var(--clay), 0 0 0 14px rgba(255,121,180,0.06); }
-        }
-
-        @media (min-width: 768px) {
-            .app { padding: 32px 24px; }
-            .card-frame { padding: 28px 26px 32px; min-height: min(90vh, 850px); }
-        }
-        @media (max-width: 400px) {
-            .card-frame { border-radius: 30px; padding: 18px 14px 22px; }
-            .game-card { padding: 14px; gap: 10px; border-radius: 28px; }
-            .play-area { min-height: 150px; border-radius: 22px; }
-            .choice-btn { min-height: 52px; padding: 10px 8px; font-size: 0.96rem; }
-            .answer-row { min-height: 66px; gap: 10px; }
-            h1 { font-size: 1.8rem; }
-            h2 { font-size: 1.4rem; }
-            .hero-art { min-height: 230px; }
-            .main-photo { width: min(50vw, 180px); }
-            .mini-photo { width: 74px; }
-            .mini-photo.two { width: 88px; }
-            .gallery-item { min-height: 110px; border-radius: 22px; }
-            .floating-note { font-size: 0.80rem; padding: 10px; }
-            .blessing-para { font-size: 0.80rem; }
-        }
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-        }
+        @media (prefers-reduced-motion:reduce){ *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important} }
     </style>
 </head>
 <body>
-    <main class="app">
-        <div class="deco-layer" id="decoLayer" aria-hidden="true"></div>
-        <span class="cloud a" aria-hidden="true"></span>
-        <span class="cloud b" aria-hidden="true"></span>
-        <span class="cloud c" aria-hidden="true"></span>
-        <span class="cloud d" aria-hidden="true"></span>
+<main class="app">
+    <div class="deco-layer" id="decoLayer" aria-hidden="true"></div>
+    <span class="cloud a" aria-hidden="true"></span>
+    <span class="cloud b" aria-hidden="true"></span>
+    <span class="cloud c" aria-hidden="true"></span>
+    <span class="cloud d" aria-hidden="true"></span>
 
-        <section class="card-frame" aria-label="Maryam's love game">
-            <span class="bunny-watermark" aria-hidden="true">🐰</span>
+    <section class="card-frame" aria-label="Maryam's love page">
+        <span class="bunny-watermark" aria-hidden="true">🐰</span>
 
-            <div class="topbar">
-                <div class="badge"><span class="badge-dot"></span>Maryam mode 💗</div>
-                <div class="progress-pill" aria-label="Love meter progress">
-                    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+        <!-- TOP BAR -->
+        <div class="topbar">
+            <div class="badge"><span class="badge-dot"></span>Maryam mode 💗</div>
+            <div class="progress-pill" aria-label="Journey progress">
+                <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+            </div>
+        </div>
+
+        <div class="screen-wrap">
+
+            <!-- ══ SCREEN 1: COVER ══ -->
+            <section class="screen active" id="coverScreen">
+                <div class="hero-art" aria-hidden="true">
+                    <div class="sparkle-ring"></div>
+                    <img class="main-photo" src="660104089_17895009111434601_2008328626148869452_n.jpg" alt="">
+                    <img class="mini-photo one" src="10209668-6D3E-43B9-9810-7736D01FE8DF.JPEG" alt="">
+                    <img class="mini-photo two" src="A99E1CD2-04B7-4281-912B-A861D5AAC681.JPEG" alt="">
+                    <span class="squish sm">♥</span>
+                    <span class="squish lg">♥</span>
+                    <span class="squish md">♥</span>
                 </div>
-            </div>
+                <div class="cover-copy">
+                    <h1 class="cover-title">Made with love for <span class="hl">Maryam</span> 🌸</h1>
+                    <p class="subtitle">A whole page dedicated to you. Romantic, funny, a little unhinged — just like us.</p>
+                    <button class="primary-btn" id="coverStartBtn">Open your surprise 🎀</button>
+                </div>
+            </section>
 
-            <div class="screen-wrap">
-
-                <!-- INTRO -->
-                <section class="screen active" id="introScreen">
-                    <div class="hero-art" aria-hidden="true">
-                        <div class="sparkle-ring"></div>
-                        <img class="main-photo" src="660104089_17895009111434601_2008328626148869452_n.jpg" alt="">
-                        <img class="mini-photo one" src="10209668-6D3E-43B9-9810-7736D01FE8DF.JPEG" alt="">
-                        <img class="mini-photo two" src="A99E1CD2-04B7-4281-912B-A861D5AAC681.JPEG" alt="">
-                        <span class="squish sm">&hearts;</span>
-                        <span class="squish lg">&hearts;</span>
-                        <span class="squish md">&hearts;</span>
+            <!-- ══ SCREEN 2: BREAKING NEWS ══ -->
+            <section class="screen" id="newsScreen">
+                <div class="news-wrap">
+                    <div class="chip">📺 Breaking news</div>
+                    <div class="tv-frame">
+                        <div class="tv-scanline"></div>
+                        <img class="news-photo" src="660104089_17895009111434601_2008328626148869452_n.jpg" alt="">
+                        <span class="news-badge">🔴 LIVE</span>
+                        <p class="news-headline">LOCAL PERSON <span class="accent">MARYAM</span> OFFICIALLY CONFIRMED AS THE BEST PERSON TO EXIST</p>
+                        <p class="news-sub">Experts say the results are "not even close." The competition never showed up.</p>
                     </div>
-                    <div class="copy">
-                        <h1><span class="hl">Maryam's</span> Tiny Love Game</h1>
-                        <p class="subtitle">A soft pink challenge where every button has suspiciously wholesome intentions 🌸</p>
-                        <button class="primary-btn" id="startBtn">Start the cuteness 💕</button>
+                    <div class="ticker-wrap" aria-hidden="true">
+                        <div class="ticker-inner" id="ticker">
+                            <span class="ticker-item">Maryam appreciation levels at an all-time high</span>
+                            <span class="ticker-item">Scientists baffled by how cute she is</span>
+                            <span class="ticker-item">Local love meter breaks world record</span>
+                            <span class="ticker-item">Maryam smile declared a national treasure</span>
+                            <span class="ticker-item">Experts confirm: she's the main character</span>
+                            <span class="ticker-item">Maryam appreciation levels at an all-time high</span>
+                            <span class="ticker-item">Scientists baffled by how cute she is</span>
+                            <span class="ticker-item">Local love meter breaks world record</span>
+                            <span class="ticker-item">Maryam smile declared a national treasure</span>
+                            <span class="ticker-item">Experts confirm: she's the main character</span>
+                        </div>
                     </div>
-                </section>
+                    <button class="primary-btn" id="newsNextBtn">What else? 👀</button>
+                </div>
+            </section>
 
-                <!-- GAME -->
-                <section class="screen" id="gameScreen" aria-live="polite">
-                    <article class="game-card">
-                        <div class="question-head">
-                            <span class="round-chip" id="roundChip">Round 1 of 7</span>
-                            <div class="question-text">
-                                <h2 id="questionTitle">Do you love me?</h2>
-                            </div>
-                        </div>
-                        <div class="play-area" id="playArea">
-                            <div class="memory-orbit" aria-hidden="true">
-                                <img class="memory-tile" src="10209668-6D3E-43B9-9810-7736D01FE8DF.JPEG" alt="">
-                                <img class="memory-tile" src="A99E1CD2-04B7-4281-912B-A861D5AAC681.JPEG" alt="">
-                                <img class="memory-tile" src="Gemini_Generated_Image_yf6l5zyf6l5zyf6l.png" alt="">
-                            </div>
-                            <div class="floating-note" id="floatingNote">The correct answer is being guarded by extra pink softness.</div>
-                        </div>
-                        <div class="love-meter" aria-label="Sweetness meter">
-                            <div class="meter-label">
-                                <span>sweetness</span>
-                                <span id="meterText">12%</span>
-                            </div>
-                            <div class="meter-track"><div class="meter-fill" id="meterFill"></div></div>
-                        </div>
-                        <div class="answer-row" id="answerRow">
-                            <button class="choice-btn yes" id="yesBtn">Yes 💗</button>
-                            <button class="choice-btn no" id="noBtn">No</button>
-                        </div>
-                    </article>
-                </section>
-
-                <!-- GALLERY (photos) -->
-                <section class="screen" id="galleryScreen">
-                    <div class="game-card">
-                        <div class="question-head">
-                            <span class="round-chip">✨ Bonus level unlocked</span>
-                            <h2>Maryam's pocket gallery</h2>
-                            <p class="subtitle">Proof that this page is completely biased toward her 🌷</p>
-                        </div>
-                        <div class="gallery">
-                            <div class="gallery-item">
-                                <img src="Gemini_Generated_Image_cwlojocwlojocwlo.png" alt="">
-                                <span class="gallery-sticker">main character energy ✨</span>
-                            </div>
-                            <div class="gallery-item">
-                                <video src="0b2c88a35a364e2fa9a17ebe722243df.MOV" muted loop autoplay playsinline></video>
-                                <span class="gallery-sticker">tiny clip 🎀</span>
-                            </div>
-                            <div class="gallery-item">
-                                <img src="660104089_17895009111434601_2008328626148869452_n.jpg" alt="">
-                                <span class="gallery-sticker">favourite person 💕</span>
-                            </div>
-                        </div>
-                        <button class="primary-btn" id="galleryNextBtn">See all clips 🎬</button>
+            <!-- ══ SCREEN 3: FUN FACTS ══ -->
+            <section class="screen" id="factsScreen">
+                <div class="inner-card">
+                    <div class="question-head">
+                        <span class="chip">✨ Fun facts about Maryam</span>
+                        <p class="subtitle">Scientifically verified. Probably.</p>
                     </div>
-                </section>
-
-                <!-- VIDEO SCREEN -->
-                <section class="screen" id="videoScreen">
-                    <div class="game-card">
-                        <div class="question-head">
-                            <span class="round-chip">🎥 The full archive</span>
-                            <h2>All of Maryam's clips</h2>
-                            <p class="subtitle">Every single one is a little memory worth keeping 🌸</p>
+                    <div class="facts-area" id="factsArea">
+                        <div class="fact-card visible" data-index="0">
+                            <div class="fact-emoji">🔬</div>
+                            <p class="fact-text">"Scientists have confirmed Maryam is the main character."</p>
+                            <p class="fact-caption">They're still studying the supporting cast. Results pending.</p>
                         </div>
-                        <div class="video-grid">
-                            <div class="video-item">
-                                <video src="1b8736841a73484480120a540d86f01c.MOV" muted loop autoplay playsinline></video>
-                                <span class="gallery-sticker">moment 1 🌷</span>
-                            </div>
-                            <div class="video-item">
-                                <video src="8e6169f36e8c4a39b7cacf3fe5d10c3d.MOV" muted loop autoplay playsinline></video>
-                                <span class="gallery-sticker">moment 2 💗</span>
-                            </div>
-                            <div class="video-item">
-                                <video src="09daf1a0ae2e4485affacc3bc6cfe6bb.MOV" muted loop autoplay playsinline></video>
-                                <span class="gallery-sticker">moment 3 🌸</span>
-                            </div>
-                            <div class="video-item">
-                                <video src="360c42a278454876acce341d0b28507a.MOV" muted loop autoplay playsinline></video>
-                                <span class="gallery-sticker">moment 4 ✨</span>
-                            </div>
-                            <div class="video-item">
-                                <video src="a26e347849a14c869a6b2cdc8e5c1c2e.MOV" muted loop autoplay playsinline></video>
-                                <span class="gallery-sticker">moment 5 🎀</span>
-                            </div>
-                            <div class="video-item">
-                                <video src="bd84a023c9a8461ca3d0e6b83c17ea8b.MOV" muted loop autoplay playsinline></video>
-                                <span class="gallery-sticker">moment 6 💫</span>
-                            </div>
+                        <div class="fact-card" data-index="1">
+                            <div class="fact-emoji">📊</div>
+                            <p class="fact-text">"100% of people who've met Maryam think she's amazing."</p>
+                            <p class="fact-caption">The other 0% simply haven't had the privilege yet.</p>
                         </div>
-                        <button class="primary-btn" id="videoNextBtn">Final question ☁️</button>
+                        <div class="fact-card" data-index="2">
+                            <div class="fact-emoji">⚠️</div>
+                            <p class="fact-text">"Warning: extended exposure to Maryam causes involuntary smiling."</p>
+                            <p class="fact-caption">Side effects include excessive happiness and wanting to text her good morning.</p>
+                        </div>
+                        <div class="fact-card" data-index="3">
+                            <div class="fact-emoji">📖</div>
+                            <p class="fact-text">"The word 'favourite' was invented so there'd be a word strong enough."</p>
+                            <p class="fact-caption">Historians say it was specifically for her. We choose to believe this.</p>
+                        </div>
+                        <div class="fact-card" data-index="4">
+                            <div class="fact-emoji">🌙</div>
+                            <p class="fact-text">"She makes bad days feel like good ones just by existing."</p>
+                            <p class="fact-caption">No other qualifications needed. She just does. It's insane really.</p>
+                        </div>
                     </div>
-                </section>
-
-                <!-- FINAL -->
-                <section class="screen final-screen" id="finalScreen">
-                    <article class="final-card">
-                        <span class="final-crown" aria-hidden="true">👑</span>
-                        <img class="crown-photo" src="660104089_17895009111434601_2008328626148869452_n.jpg" alt="Maryam">
-                        <h2 class="final-title">She said yes 💕</h2>
-                        <p class="final-copy">Maryam wins the whole game, the full pink kingdom, and one very proud little love meter at 100% 🌸</p>
-
-                        <p class="blessing-para">
-                            <strong>Maryam,</strong> you are, without a doubt, the most genuine blessing in my life. Your smile alone makes the hardest days feel light. You bring warmth, colour, and a kind of quiet magic that I never knew I needed — until you were there. Every single moment with you feels like a gift I didn't deserve but am endlessly grateful for. Thank you for simply being you. My favourite person, always and forever. 💗
-                        </p>
-
-                        <div class="tiny-actions">
-                            <button class="tiny-btn" id="moreHeartsBtn">More hearts 💖</button>
-                            <button class="tiny-btn secondary" id="replayBtn">Replay 🔁</button>
+                    <div class="fact-nav">
+                        <button class="nav-btn" id="factPrev" aria-label="Previous fact">‹</button>
+                        <div class="dot-row" id="dotRow">
+                            <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
                         </div>
-                    </article>
-                </section>
+                        <button class="nav-btn" id="factNext" aria-label="Next fact">›</button>
+                    </div>
+                    <button class="primary-btn" id="factsNextBtn">Keep going 💕</button>
+                </div>
+            </section>
 
-            </div>
-        </section>
+            <!-- ══ SCREEN 4: LOVE LETTER ══ -->
+            <section class="screen" id="letterScreen">
+                <div class="inner-card">
+                    <div class="question-head">
+                        <span class="chip">💌 A letter for you</span>
+                    </div>
+                    <div class="letter-paper">
+                        <div class="letter-lines" id="letterLines" aria-live="polite"></div>
+                        <div class="letter-footer">— Someone who thinks about you a lot 🌸</div>
+                    </div>
+                    <button class="primary-btn" id="letterNextBtn" style="display:none">That's sweet 🥹</button>
+                </div>
+            </section>
 
-        <div class="heart-layer" id="heartLayer" aria-hidden="true"></div>
-        <div class="confetti-layer" id="confettiLayer" aria-hidden="true"></div>
-        <div class="toast" id="toast" role="status" aria-live="polite"></div>
-    </main>
+            <!-- ══ SCREEN 5: FAKE SLIDER ══ -->
+            <section class="screen" id="sliderScreen">
+                <div class="inner-card">
+                    <div class="question-head">
+                        <span class="chip">🎯 A very important quiz</span>
+                    </div>
+                    <div class="quiz-area">
+                        <p class="quiz-q">On a scale of 0 to 10, how much do you love me?</p>
+                        <div class="slider-wrap">
+                            <div class="slider-labels"><span>0 — not at all</span><span>10 — obsessed</span></div>
+                            <input type="range" class="love-slider" id="loveSlider" min="0" max="10" value="5" aria-label="Love scale">
+                            <div class="slider-val-display" id="sliderVal">5</div>
+                        </div>
+                        <div class="slider-reaction">
+                            <p class="reaction-text" id="reactionText">Move the slider... if you dare.</p>
+                        </div>
+                    </div>
+                    <button class="primary-btn" id="sliderNextBtn">Next 💫</button>
+                </div>
+            </section>
 
-    <script>
-        const $ = id => document.querySelector(id);
-        const introScreen   = $("#introScreen");
-        const gameScreen    = $("#gameScreen");
-        const galleryScreen = $("#galleryScreen");
-        const videoScreen   = $("#videoScreen");
-        const finalScreen   = $("#finalScreen");
-        const startBtn      = $("#startBtn");
-        const galleryNextBtn= $("#galleryNextBtn");
-        const videoNextBtn  = $("#videoNextBtn");
-        const replayBtn     = $("#replayBtn");
-        const moreHeartsBtn = $("#moreHeartsBtn");
-        const yesBtn        = $("#yesBtn");
-        const noBtn         = $("#noBtn");
-        const answerRow     = $("#answerRow");
-        const playArea      = $("#playArea");
-        const roundChip     = $("#roundChip");
-        const questionTitle = $("#questionTitle");
-        const floatingNote  = $("#floatingNote");
-        const progressFill  = $("#progressFill");
-        const meterFill     = $("#meterFill");
-        const meterText     = $("#meterText");
-        const heartLayer    = $("#heartLayer");
-        const confettiLayer = $("#confettiLayer");
-        const toastEl       = $("#toast");
-        const decoLayer     = $("#decoLayer");
+            <!-- ══ SCREEN 6: CONFESSION / REASONS ══ -->
+            <section class="screen" id="confessionScreen">
+                <div class="inner-card">
+                    <div class="question-head" style="flex-shrink:0">
+                        <span class="chip">💗 Why you're my favourite</span>
+                    </div>
+                    <div class="confession-area" style="flex:1 1 0%;min-height:0">
+                        <img class="confession-photo" src="Gemini_Generated_Image_cwlojocwlojocwlo.png" alt="">
+                        <p class="confession-title">You're literally just <span style="color:var(--pink-deep)">the best.</span></p>
+                        <p class="confession-copy">No long explanation needed. Just you. Existing. Being you. That's it. That's the whole reason.</p>
+                        <div class="reason-pills">
+                            <span class="reason-pill">Your laugh 😄</span>
+                            <span class="reason-pill">Your brain 🧠</span>
+                            <span class="reason-pill">The way you care 🌸</span>
+                            <span class="reason-pill">Your vibe ✨</span>
+                            <span class="reason-pill">Everything else 💕</span>
+                        </div>
+                    </div>
+                    <button class="primary-btn" id="confessionNextBtn">Okay what's next? 🫣</button>
+                </div>
+            </section>
 
-        /* Floating decorations */
-        const decoTypes = ['deco-star','deco-heart-sm','deco-butterfly','deco-moon','deco-flower'];
-        (function spawnDecos() {
-            for (let i = 0; i < 16; i++) {
-                const el = document.createElement('span');
-                el.className = decoTypes[i % decoTypes.length];
-                el.style.left = `${Math.random() * 100}%`;
-                el.style.animationDuration = `${14 + Math.random() * 20}s`;
-                el.style.animationDelay = `${-Math.random() * 25}s`;
-                el.style.opacity = `${0.14 + Math.random() * 0.22}`;
-                el.style.transform = `scale(${0.6 + Math.random() * 0.7})`;
-                decoLayer.appendChild(el);
-            }
-        })();
+            <!-- ══ SCREEN 7: GAME WARN ══ -->
+            <section class="screen" id="gameWarnScreen">
+                <div class="inner-card">
+                    <div class="warn-area" style="flex:1 1 0%;min-height:0;border-radius:22px">
+                        <div class="warn-icon">🕹️</div>
+                        <h2 class="section-title">Time for the <span class="hl">game</span></h2>
+                        <p class="subtitle">You didn't think this was just a cute page, did you? There are rules.</p>
+                        <div class="warn-rules">
+                            <div class="rule-item"><span class="rule-icon">💗</span><span class="rule-text">There are 7 rounds. Each one is a question with a very obvious correct answer.</span></div>
+                            <div class="rule-item"><span class="rule-icon">🏃</span><span class="rule-text">The No button is aware of its own wrongness and will try to escape.</span></div>
+                            <div class="rule-item"><span class="rule-icon">🎀</span><span class="rule-text">Pressing Yes fills the sweetness meter and unlocks the good stuff.</span></div>
+                            <div class="rule-item"><span class="rule-icon">👑</span><span class="rule-text">There is no losing. Maryam always wins. This is established law.</span></div>
+                        </div>
+                    </div>
+                    <button class="primary-btn" id="gameWarnStartBtn">Let's go 🎮</button>
+                </div>
+            </section>
 
-        /* Sparkle cursor trail */
-        let lastSparkle = 0;
-        const sparkleColors = ['#ff5fa8','#ffe894','#a9efd6','#dac1ff','#ffc796','#b8dcff'];
-        document.addEventListener('pointermove', e => {
-            const now = Date.now();
-            if (now - lastSparkle < 70) return;
-            lastSparkle = now;
-            const d = document.createElement('span');
-            d.className = 'sparkle-dot';
-            d.style.left = `${e.clientX - 4}px`;
-            d.style.top  = `${e.clientY - 4}px`;
-            d.style.background = sparkleColors[Math.floor(Math.random() * sparkleColors.length)];
-            document.body.appendChild(d);
-            d.addEventListener('animationend', () => d.remove());
-        });
+            <!-- ══ SCREEN 8: GAME ══ -->
+            <section class="screen" id="gameScreen" aria-live="polite">
+                <article class="inner-card">
+                    <div class="question-head">
+                        <span class="chip" id="roundChip">Round 1 of 7</span>
+                        <div class="question-text">
+                            <h2 id="questionTitle">Do you love me?</h2>
+                        </div>
+                    </div>
+                    <div class="play-area" id="playArea">
+                        <div class="memory-orbit" aria-hidden="true">
+                            <img class="memory-tile" src="10209668-6D3E-43B9-9810-7736D01FE8DF.JPEG" alt="">
+                            <img class="memory-tile" src="A99E1CD2-04B7-4281-912B-A861D5AAC681.JPEG" alt="">
+                            <img class="memory-tile" src="Gemini_Generated_Image_yf6l5zyf6l5zyf6l.png" alt="">
+                        </div>
+                        <div class="floating-note" id="floatingNote">The correct answer is being guarded by extra pink softness.</div>
+                    </div>
+                    <div class="love-meter" aria-label="Sweetness meter">
+                        <div class="meter-label"><span>sweetness</span><span id="meterText">12%</span></div>
+                        <div class="meter-track"><div class="meter-fill" id="meterFill"></div></div>
+                    </div>
+                    <div class="answer-row" id="answerRow">
+                        <button class="choice-btn yes" id="yesBtn">Yes 💗</button>
+                        <button class="choice-btn no" id="noBtn">No</button>
+                    </div>
+                </article>
+            </section>
 
-        /* Game data */
-        const rounds = [
-            {
-                title: "Do you love me?",
-                note:  "A classic question. The game is pretending to be neutral.",
-                yes:   "Yes 💗",
-                no:    "No",
-                noToast: "The No button has filed an appeal. It looks nervous."
-            },
-            {
-                title: "Are you sure you don't want to press yes?",
-                note:  "The pink committee recommends yes with full confidence.",
-                yes:   "Okay yes 💕",
-                no:    "Still no",
-                noToast: "That button just tripped over its own confidence."
-            },
-            {
-                title: "What if yes comes with unlimited tiny compliments?",
-                note:  "Compliment preview: Maryam is adorable, thoughtful, and impossible to beat.",
-                yes:   "I accept 🌸",
-                no:    "Hmm no",
-                noToast: "No has started hiding behind the memories."
-            },
-            {
-                title: "Pick the answer that makes the sweetness meter sparkle.",
-                note:  "Scientific result: yes is extremely sparkly.",
-                yes:   "Sparkly yes ✨",
-                no:    "Plain no",
-                noToast: "Plain no is too plain for this level."
-            },
-            {
-                title: "Would you rather be right, or be extra cute and right?",
-                note:  "This is not a trick question. It is a tiny trap with ribbons.",
-                yes:   "Cute and right 🎀",
-                no:    "Just right",
-                noToast: "The game upgraded your answer to cute and right."
-            },
-            {
-                title: "Last chance for the No button to behave.",
-                note:  "It promised to behave. It lied.",
-                yes:   "Yes, obviously 💗",
-                no:    "No?",
-                noToast: "No has turned into a tiny yes intern."
-            },
-            {
-                title: "Final boss: do you love me?",
-                note:  "There is only one button brave enough for the ending.",
-                yes:   "Yes forever 💕",
-                no:    "Yes but shy",
-                noToast: "Even the No button said yes. Beautiful character growth."
-            }
-        ];
+            <!-- ══ SCREEN 9: GALLERY ══ -->
+            <section class="screen" id="galleryScreen">
+                <div class="inner-card">
+                    <div class="question-head">
+                        <span class="chip">✨ Bonus level unlocked</span>
+                        <h2 class="section-title">Maryam's pocket gallery</h2>
+                        <p class="subtitle">Proof this page is completely biased toward her 🌷</p>
+                    </div>
+                    <div class="gallery">
+                        <div class="gallery-item">
+                            <img src="Gemini_Generated_Image_cwlojocwlojocwlo.png" alt="">
+                            <span class="gallery-sticker">main character energy ✨</span>
+                        </div>
+                        <div class="gallery-item">
+                            <video src="0b2c88a35a364e2fa9a17ebe722243df.MOV" muted loop autoplay playsinline></video>
+                            <span class="gallery-sticker">tiny clip 🎀</span>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="660104089_17895009111434601_2008328626148869452_n.jpg" alt="">
+                            <span class="gallery-sticker">favourite person 💕</span>
+                        </div>
+                    </div>
+                    <button class="primary-btn" id="galleryNextBtn">See all clips 🎬</button>
+                </div>
+            </section>
 
-        const noLabels = ["Wait","Not that","Oops","Try yes","Too slow","Secret yes","I panicked"];
+            <!-- ══ SCREEN 10: VIDEOS ══ -->
+            <section class="screen" id="videoScreen">
+                <div class="inner-card">
+                    <div class="question-head">
+                        <span class="chip">🎥 The full archive</span>
+                        <h2 class="section-title">All of Maryam's clips</h2>
+                        <p class="subtitle">Every single one is a little memory worth keeping 🌸</p>
+                    </div>
+                    <div class="video-grid">
+                        <div class="video-item">
+                            <video src="1b8736841a73484480120a540d86f01c.MOV" muted loop autoplay playsinline></video>
+                            <span class="gallery-sticker">moment 1 🌷</span>
+                        </div>
+                        <div class="video-item">
+                            <video src="8e6169f36e8c4a39b7cacf3fe5d10c3d.MOV" muted loop autoplay playsinline></video>
+                            <span class="gallery-sticker">moment 2 💗</span>
+                        </div>
+                        <div class="video-item">
+                            <video src="09daf1a0ae2e4485affacc3bc6cfe6bb.MOV" muted loop autoplay playsinline></video>
+                            <span class="gallery-sticker">moment 3 🌸</span>
+                        </div>
+                        <div class="video-item">
+                            <video src="360c42a278454876acce341d0b28507a.MOV" muted loop autoplay playsinline></video>
+                            <span class="gallery-sticker">moment 4 ✨</span>
+                        </div>
+                        <div class="video-item">
+                            <video src="a26e347849a14c869a6b2cdc8e5c1c2e.MOV" muted loop autoplay playsinline></video>
+                            <span class="gallery-sticker">moment 5 🎀</span>
+                        </div>
+                        <div class="video-item">
+                            <video src="bd84a023c9a8461ca3d0e6b83c17ea8b.MOV" muted loop autoplay playsinline></video>
+                            <span class="gallery-sticker">moment 6 💫</span>
+                        </div>
+                    </div>
+                    <button class="primary-btn" id="videoNextBtn">Almost there ☁️</button>
+                </div>
+            </section>
 
-        let roundIndex = 0, noAttempts = 0, toastTimer;
+            <!-- ══ SCREEN 11: FINAL ══ -->
+            <section class="screen final-screen" id="finalScreen">
+                <article class="final-card">
+                    <span class="final-crown" aria-hidden="true">👑</span>
+                    <img class="crown-photo" src="660104089_17895009111434601_2008328626148869452_n.jpg" alt="Maryam">
+                    <h2 class="final-title">She said yes 💕</h2>
+                    <p class="final-copy">Maryam wins the whole game, the full pink kingdom, and one very proud little love meter at 100% 🌸</p>
+                    <p class="blessing-para">
+                        <strong>Maryam,</strong> you are, without a doubt, the most genuine blessing in my life. Your smile alone makes the hardest days feel lighter. You bring warmth, colour, and a kind of quiet magic I never knew I needed — until you were there. Every single moment with you feels like a gift I didn't deserve but am endlessly grateful for. Thank you for simply being you. My favourite person, always and forever. 💗
+                    </p>
+                    <div class="tiny-actions">
+                        <button class="tiny-btn" id="moreHeartsBtn">More hearts 💖</button>
+                        <button class="tiny-btn secondary" id="replayBtn">Replay 🔁</button>
+                    </div>
+                </article>
+            </section>
 
-        const allScreens = [introScreen, gameScreen, galleryScreen, videoScreen, finalScreen];
-        function setScreen(s) {
-            allScreens.forEach(el => el.classList.toggle("active", el === s));
+        </div><!-- /screen-wrap -->
+    </section>
+
+    <div class="heart-layer" id="heartLayer" aria-hidden="true"></div>
+    <div class="confetti-layer" id="confettiLayer" aria-hidden="true"></div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</main>
+
+<script>
+/* ─── UTILS ─── */
+const $ = id => document.querySelector(id);
+
+/* ─── SCREENS ─── */
+const screens = {
+    cover:       $("#coverScreen"),
+    news:        $("#newsScreen"),
+    facts:       $("#factsScreen"),
+    letter:      $("#letterScreen"),
+    slider:      $("#sliderScreen"),
+    confession:  $("#confessionScreen"),
+    gameWarn:    $("#gameWarnScreen"),
+    game:        $("#gameScreen"),
+    gallery:     $("#galleryScreen"),
+    video:       $("#videoScreen"),
+    final:       $("#finalScreen"),
+};
+const SCREEN_ORDER = ["cover","news","facts","letter","slider","confession","gameWarn","game","gallery","video","final"];
+
+function setScreen(name) {
+    Object.values(screens).forEach(el => el.classList.remove("active"));
+    screens[name].classList.add("active");
+    const idx = SCREEN_ORDER.indexOf(name);
+    const pct = Math.round((idx / (SCREEN_ORDER.length - 1)) * 100);
+    $("#progressFill").style.width = `${Math.max(3,pct)}%`;
+}
+
+/* ─── PARTICLES ─── */
+const heartLayer    = $("#heartLayer");
+const confettiLayer = $("#confettiLayer");
+
+function burstHearts(count=14, ox=window.innerWidth/2, oy=window.innerHeight*0.65) {
+    const colors = ["#ff5fa8","#ff8aa5","#ffe894","#a9efd6","#dac1ff","#ffc796"];
+    for (let i=0;i<count;i++) {
+        const h = document.createElement("span");
+        h.className = "heart";
+        const sx=(Math.random()-.5)*190, sy=(Math.random()-.5)*50, sz=14+Math.random()*12;
+        h.style.cssText=`left:${ox+sx}px;top:${oy+sy}px;width:${sz}px;height:${sz}px;background:${colors[i%colors.length]};animation-delay:${Math.random()*.2}s;animation-duration:${1.2+Math.random()*.5}s;`;
+        heartLayer.appendChild(h);
+        h.addEventListener("animationend",()=>h.remove());
+    }
+}
+
+function confettiBurst(count=36) {
+    const colors=["#ff5fa8","#ffc796","#ffe894","#a9efd6","#b8dcff","#dac1ff","#ff8aa5"];
+    const shapes=['','circle','star'];
+    for (let i=0;i<count;i++) {
+        const p=document.createElement("span");
+        p.className=`confetti ${shapes[Math.floor(Math.random()*shapes.length)]}`;
+        p.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*14}%;background:${colors[i%colors.length]};animation-delay:${Math.random()*.38}s;animation-duration:${1.6+Math.random()*.9}s;`;
+        confettiLayer.appendChild(p);
+        p.addEventListener("animationend",()=>p.remove());
+    }
+}
+
+/* ─── TOAST ─── */
+const toastEl = $("#toast");
+let toastTimer;
+function showToast(msg) {
+    clearTimeout(toastTimer);
+    toastEl.textContent=msg;
+    toastEl.classList.add("show");
+    toastTimer=setTimeout(()=>toastEl.classList.remove("show"),2400);
+}
+
+/* ─── DECORATIONS ─── */
+const decoTypes=['deco-star','deco-heart-sm','deco-butterfly','deco-moon','deco-flower'];
+(function spawnDecos(){
+    const layer=$("#decoLayer");
+    for(let i=0;i<18;i++){
+        const el=document.createElement('span');
+        el.className=decoTypes[i%decoTypes.length];
+        el.style.left=`${Math.random()*100}%`;
+        el.style.animationDuration=`${14+Math.random()*20}s`;
+        el.style.animationDelay=`${-Math.random()*25}s`;
+        el.style.opacity=`${.14+Math.random()*.22}`;
+        el.style.transform=`scale(${.6+Math.random()*.7})`;
+        layer.appendChild(el);
+    }
+})();
+
+/* ─── SPARKLE CURSOR ─── */
+let lastSparkle=0;
+const sparkleColors=['#ff5fa8','#ffe894','#a9efd6','#dac1ff','#ffc796','#b8dcff'];
+document.addEventListener('pointermove',e=>{
+    const now=Date.now();
+    if(now-lastSparkle<65)return;
+    lastSparkle=now;
+    const d=document.createElement('span');
+    d.className='sparkle-dot';
+    d.style.left=`${e.clientX-4}px`;
+    d.style.top=`${e.clientY-4}px`;
+    d.style.background=sparkleColors[Math.floor(Math.random()*sparkleColors.length)];
+    document.body.appendChild(d);
+    d.addEventListener('animationend',()=>d.remove());
+});
+
+/* ════════════════════════════════════════
+   SCREEN 1: COVER
+════════════════════════════════════════ */
+$("#coverStartBtn").addEventListener("click",()=>{
+    burstHearts(18); confettiBurst(10);
+    setTimeout(()=>setScreen("news"),200);
+});
+
+/* ════════════════════════════════════════
+   SCREEN 2: BREAKING NEWS
+════════════════════════════════════════ */
+$("#newsNextBtn").addEventListener("click",()=>{
+    burstHearts(10); setScreen("facts");
+});
+
+/* ════════════════════════════════════════
+   SCREEN 3: FUN FACTS CAROUSEL
+════════════════════════════════════════ */
+let factIndex = 0;
+const factCards = Array.from(document.querySelectorAll(".fact-card"));
+const dots = Array.from(document.querySelectorAll(".dot"));
+
+function showFact(newIdx, dir=1){
+    const prev = factIndex;
+    factIndex = (newIdx + factCards.length) % factCards.length;
+    factCards[prev].classList.remove("visible");
+    factCards[prev].classList.add("exit-left");
+    setTimeout(()=>{
+        factCards[prev].classList.remove("exit-left");
+        factCards[prev].style.transform = dir>0?"translateX(60px)":"translateX(-60px)";
+        factCards[prev].style.opacity="0";
+        setTimeout(()=>{ factCards[prev].style.cssText=""; },50);
+    },380);
+    factCards[factIndex].classList.add("visible");
+    dots.forEach((d,i)=>d.classList.toggle("active",i===factIndex));
+}
+$("#factNext").addEventListener("click",()=>showFact(factIndex+1,1));
+$("#factPrev").addEventListener("click",()=>showFact(factIndex-1,-1));
+$("#factsNextBtn").addEventListener("click",()=>{
+    burstHearts(8); confettiBurst(6);
+    setScreen("letter");
+    startTypewriter();
+});
+
+/* ════════════════════════════════════════
+   SCREEN 4: LOVE LETTER (TYPEWRITER)
+════════════════════════════════════════ */
+const letterLines = [
+    "Hey you.",
+    "Yeah, you. The one reading this.",
+    "I made this whole thing just for you,",
+    "which either makes me very romantic",
+    "or very unhinged. Probably both.",
+    "",
+    "But here's the thing —",
+    "you matter. A lot.",
+    "More than I usually say out loud.",
+    "",
+    "You make ordinary days feel different.",
+    "You make laughing feel easy.",
+    "You make everything just... better.",
+    "",
+    "So here it is, in pink,",
+    "with hearts and a mildly unfair game:",
+    "",
+    "I'm really, really glad you exist. 🌸",
+];
+
+let typewriterDone = false;
+function startTypewriter(){
+    if(typewriterDone) return;
+    typewriterDone = true;
+    const container = $("#letterLines");
+    container.innerHTML = "";
+    let lineIdx=0, charIdx=0;
+
+    const cursor = document.createElement("span");
+    cursor.className = "cursor-blink";
+
+    function tick(){
+        if(lineIdx >= letterLines.length){
+            cursor.remove();
+            const btn = $("#letterNextBtn");
+            btn.style.display = "";
+            btn.style.animation = "bounceSoft .8s ease-in-out";
+            return;
+        }
+        const line = letterLines[lineIdx];
+
+        // New line element
+        if(charIdx === 0){
+            const row = document.createElement("div");
+            row.className = "letter-line";
+            const num = document.createElement("span");
+            num.className = "line-num";
+            num.textContent = lineIdx+1;
+            const txt = document.createElement("span");
+            txt.className = "letter-text";
+            row.appendChild(num);
+            row.appendChild(txt);
+            row.appendChild(cursor);
+            container.appendChild(row);
+            container.scrollTop = container.scrollHeight;
         }
 
-        function updateProgress() {
-            const pct = Math.min(100, Math.round((roundIndex / rounds.length) * 100));
-            const m = Math.max(12, Math.min(100, pct || 12));
-            progressFill.style.width = `${m}%`;
-            meterFill.style.width    = `${m}%`;
-            meterText.textContent    = `${m}%`;
+        const currentTxt = container.lastElementChild.querySelector(".letter-text");
+        if(charIdx < line.length){
+            currentTxt.textContent += line[charIdx];
+            charIdx++;
+            setTimeout(tick, line[charIdx-1]===" " ? 40 : 28);
+        } else {
+            lineIdx++; charIdx=0;
+            setTimeout(tick, line.length===0 ? 120 : 220);
         }
+    }
+    setTimeout(tick, 400);
+}
 
-        function renderRound() {
-            const r = rounds[roundIndex];
-            roundChip.textContent     = `Round ${roundIndex + 1} of ${rounds.length}`;
-            questionTitle.textContent = r.title;
-            floatingNote.textContent  = r.note;
-            yesBtn.textContent        = r.yes;
-            noBtn.textContent         = r.no;
-            noBtn.classList.toggle("escape", roundIndex > 0);
-            noBtn.style.cssText       = roundIndex > 0 ? 'right:0;top:0;' : '';
-            noBtn.style.opacity       = "1";
-            noAttempts = 0;
-            updateProgress();
-        }
+$("#letterNextBtn").addEventListener("click",()=>{
+    burstHearts(12); confettiBurst(8);
+    setScreen("slider");
+});
 
-        function showToast(msg) {
-            clearTimeout(toastTimer);
-            toastEl.textContent = msg;
-            toastEl.classList.add("show");
-            toastTimer = setTimeout(() => toastEl.classList.remove("show"), 2400);
-        }
+/* ════════════════════════════════════════
+   SCREEN 5: FAKE SLIDER
+════════════════════════════════════════ */
+const reactions = [
+    {val:0,  emoji:"😐", text:"Interesting choice. Wrong, but interesting."},
+    {val:1,  emoji:"🤨", text:"1? The slider is clearly broken."},
+    {val:2,  emoji:"😒", text:"Bold of you to even try 2."},
+    {val:3,  emoji:"🫤", text:"The game is judging you right now."},
+    {val:4,  emoji:"🙄", text:"We both know that's not right."},
+    {val:5,  emoji:"😅", text:"Exactly in the middle of wrong."},
+    {val:6,  emoji:"🌸", text:"Getting warmer... still wrong though."},
+    {val:7,  emoji:"💕", text:"Hmm. Closer. The answer is 10."},
+    {val:8,  emoji:"✨", text:"Almost there! One more nudge."},
+    {val:9,  emoji:"🎀", text:"SO CLOSE. Just one more. Come on."},
+    {val:10, emoji:"💗", text:"CORRECT. 10/10. Scientifically verified. 🎉"},
+];
 
-        function burstHearts(count = 14, ox = window.innerWidth / 2, oy = window.innerHeight * 0.65) {
-            const colors = ["#ff5fa8","#ff8aa5","#ffe894","#a9efd6","#dac1ff","#ffc796"];
-            for (let i = 0; i < count; i++) {
-                const h = document.createElement("span");
-                h.className = "heart";
-                const sx = (Math.random() - 0.5) * 190;
-                const sy = (Math.random() - 0.5) * 50;
-                const sz = 14 + Math.random() * 12;
-                h.style.cssText = `left:${ox+sx}px;top:${oy+sy}px;width:${sz}px;height:${sz}px;background:${colors[i%colors.length]};animation-delay:${Math.random()*0.2}s;animation-duration:${1.2+Math.random()*0.5}s;`;
-                heartLayer.appendChild(h);
-                h.addEventListener("animationend", () => h.remove());
-            }
-        }
+const loveSlider = $("#loveSlider");
+const sliderVal  = $("#sliderVal");
+const reactionText = $("#reactionText");
 
-        function confettiBurst(count = 36) {
-            const colors = ["#ff5fa8","#ffc796","#ffe894","#a9efd6","#b8dcff","#dac1ff","#ff8aa5"];
-            const shapes = ['','circle','star'];
-            for (let i = 0; i < count; i++) {
-                const p = document.createElement("span");
-                p.className = `confetti ${shapes[Math.floor(Math.random()*shapes.length)]}`;
-                p.style.cssText = `left:${Math.random()*100}%;top:${Math.random()*14}%;background:${colors[i%colors.length]};animation-delay:${Math.random()*0.38}s;animation-duration:${1.6+Math.random()*0.9}s;`;
-                confettiLayer.appendChild(p);
-                p.addEventListener("animationend", () => p.remove());
-            }
-        }
+function updateSlider(){
+    const v = parseInt(loveSlider.value);
+    sliderVal.textContent = v;
+    loveSlider.style.setProperty("--val", `${v*10}%`);
+    const r = reactions.find(r=>r.val===v) || reactions[5];
+    reactionText.textContent = `${r.emoji}  ${r.text}`;
+    if(v===10){ confettiBurst(14); burstHearts(8); }
+}
+loveSlider.addEventListener("input", updateSlider);
+loveSlider.addEventListener("change",()=>{
+    if(parseInt(loveSlider.value)<10){
+        showToast("It always ends at 10. You know this. 💅");
+        setTimeout(()=>{ loveSlider.value=10; updateSlider(); }, 600);
+    }
+});
+updateSlider();
 
-        function nextRound(event) {
-            const rect = event?.currentTarget?.getBoundingClientRect();
-            burstHearts(16, rect ? rect.left + rect.width / 2 : window.innerWidth / 2, rect ? rect.top : window.innerHeight * 0.6);
-            confettiBurst(8);
-            if (roundIndex < rounds.length - 1) {
-                roundIndex++;
-                setTimeout(renderRound, 200);
-                return;
-            }
-            roundIndex = rounds.length;
-            updateProgress();
-            setTimeout(() => { setScreen(galleryScreen); confettiBurst(26); burstHearts(18); }, 300);
-        }
+$("#sliderNextBtn").addEventListener("click",()=>{
+    loveSlider.value=10; updateSlider();
+    burstHearts(12); confettiBurst(10);
+    setScreen("confession");
+});
 
-        function moveNoButton() {
-            const r = rounds[roundIndex];
-            noAttempts++;
-            showToast(r.noToast);
-            burstHearts(5, window.innerWidth * (0.3 + Math.random() * 0.4), window.innerHeight * 0.7);
-            if (roundIndex === rounds.length - 1 || noAttempts >= 3) {
-                noBtn.textContent = noAttempts >= 3 ? "Fine, yes 💕" : r.no;
-                if (noAttempts >= 4 || roundIndex === rounds.length - 1) { nextRound({ currentTarget: noBtn }); return; }
-            }
-            noBtn.textContent = noLabels[(noAttempts + roundIndex) % noLabels.length];
-            noBtn.classList.add("escape");
-            const rowRect = answerRow.getBoundingClientRect();
-            const btnRect = noBtn.getBoundingClientRect();
-            const maxX = Math.max(0, rowRect.width - btnRect.width);
-            noBtn.style.left      = `${Math.random() * maxX}px`;
-            noBtn.style.right     = "auto";
-            noBtn.style.top       = `${(Math.random() - 0.5) * 18}px`;
-            noBtn.style.transform = `rotate(${(Math.random()-0.5)*12}deg) scale(${0.92+Math.random()*0.1})`;
-        }
+/* ════════════════════════════════════════
+   SCREEN 6: CONFESSION / REASONS
+════════════════════════════════════════ */
+$("#confessionNextBtn").addEventListener("click",()=>{
+    burstHearts(10); setScreen("gameWarn");
+});
 
-        startBtn.addEventListener("click", () => {
-            roundIndex = 0; renderRound(); setScreen(gameScreen);
-            burstHearts(18); confettiBurst(10);
-        });
-        yesBtn.addEventListener("click", nextRound);
-        noBtn.addEventListener("click", moveNoButton);
-        noBtn.addEventListener("pointerenter", () => {
-            if (roundIndex > 1 && window.matchMedia("(hover: hover)").matches) moveNoButton();
-        });
-        galleryNextBtn.addEventListener("click", () => {
-            setScreen(videoScreen);
-            confettiBurst(14); burstHearts(10);
-        });
-        videoNextBtn.addEventListener("click", () => {
-            progressFill.style.width = "100%";
-            meterFill.style.width    = "100%";
-            meterText.textContent    = "100%";
-            setScreen(finalScreen);
-            confettiBurst(50); burstHearts(28);
-        });
-        moreHeartsBtn.addEventListener("click", e => {
-            const r = e.currentTarget.getBoundingClientRect();
-            burstHearts(30, r.left + r.width / 2, r.top);
-            confettiBurst(20);
-            showToast("Maryam has activated maximum cuteness 💗");
-        });
-        replayBtn.addEventListener("click", () => { roundIndex = 0; updateProgress(); setScreen(introScreen); });
-        playArea.addEventListener("pointerdown", e => {
-            if (e.target.closest("button")) return;
-            burstHearts(5, e.clientX, e.clientY);
-        });
-        window.addEventListener("load", () => {
-            updateProgress();
-            setTimeout(() => burstHearts(10, window.innerWidth * 0.5, window.innerHeight * 0.55), 500);
-            setTimeout(() => confettiBurst(8), 800);
-        });
-    </script>
+/* ════════════════════════════════════════
+   SCREEN 7: GAME WARN
+════════════════════════════════════════ */
+$("#gameWarnStartBtn").addEventListener("click",()=>{
+    roundIndex=0; renderRound(); setScreen("game");
+    burstHearts(18); confettiBurst(12);
+});
+
+/* ════════════════════════════════════════
+   SCREEN 8: GAME
+════════════════════════════════════════ */
+const rounds = [
+    { title:"Do you love me?",                                      note:"A classic question. The game is pretending to be neutral.",                                        yes:"Yes 💗",            no:"No",        noToast:"The No button has filed an appeal. It looks nervous." },
+    { title:"Are you sure you don't want to press yes?",            note:"The pink committee recommends yes with full confidence.",                                          yes:"Okay yes 💕",        no:"Still no",  noToast:"That button just tripped over its own confidence." },
+    { title:"What if yes comes with unlimited tiny compliments?",   note:"Preview: Maryam is adorable, thoughtful, and impossible to beat.",                               yes:"I accept 🌸",        no:"Hmm no",    noToast:"No has started hiding behind the memories." },
+    { title:"Pick the answer that makes the sweetness meter sparkle.", note:"Scientific result: yes is extremely sparkly.",                                                yes:"Sparkly yes ✨",     no:"Plain no",  noToast:"Plain no is too plain for this level." },
+    { title:"Would you rather be right, or be extra cute and right?", note:"This is not a trick question. It is a tiny trap with ribbons.",                               yes:"Cute and right 🎀",  no:"Just right", noToast:"The game upgraded your answer to cute and right." },
+    { title:"Last chance for the No button to behave.",             note:"It promised to behave. It lied.",                                                                yes:"Yes, obviously 💗",  no:"No?",       noToast:"No has turned into a tiny yes intern." },
+    { title:"Final boss: do you love me?",                          note:"There is only one button brave enough for the ending.",                                           yes:"Yes forever 💕",     no:"Yes but shy", noToast:"Even the No button said yes. Beautiful character growth." },
+];
+const noLabels = ["Wait","Not that","Oops","Try yes","Too slow","Secret yes","I panicked"];
+let roundIndex=0, noAttempts=0;
+
+function updateGameMeter(){
+    const pct = Math.max(12,Math.min(100, Math.round(((roundIndex)/rounds.length)*100)));
+    $("#meterFill").style.width=`${pct}%`;
+    $("#meterText").textContent=`${pct}%`;
+}
+
+function renderRound(){
+    const r=rounds[roundIndex];
+    $("#roundChip").textContent=`Round ${roundIndex+1} of ${rounds.length}`;
+    $("#questionTitle").textContent=r.title;
+    $("#floatingNote").textContent=r.note;
+    $("#yesBtn").textContent=r.yes;
+    $("#noBtn").textContent=r.no;
+    $("#noBtn").classList.toggle("escape",roundIndex>0);
+    $("#noBtn").style.cssText=roundIndex>0?'right:0;top:0;':'';
+    noAttempts=0;
+    updateGameMeter();
+}
+
+function nextRound(event){
+    const rect=event?.currentTarget?.getBoundingClientRect();
+    burstHearts(16, rect?rect.left+rect.width/2:window.innerWidth/2, rect?rect.top:window.innerHeight*.6);
+    confettiBurst(8);
+    if(roundIndex < rounds.length-1){
+        roundIndex++;
+        setTimeout(renderRound,200);
+        return;
+    }
+    roundIndex=rounds.length;
+    updateGameMeter();
+    setTimeout(()=>{ setScreen("gallery"); confettiBurst(26); burstHearts(18); },300);
+}
+
+function moveNoButton(){
+    const r=rounds[roundIndex];
+    noAttempts++;
+    showToast(r.noToast);
+    burstHearts(5,window.innerWidth*(.3+Math.random()*.4),window.innerHeight*.7);
+    if(roundIndex===rounds.length-1||noAttempts>=3){
+        $("#noBtn").textContent=noAttempts>=3?"Fine, yes 💕":r.no;
+        if(noAttempts>=4||roundIndex===rounds.length-1){ nextRound({currentTarget:$("#noBtn")}); return; }
+    }
+    $("#noBtn").textContent=noLabels[(noAttempts+roundIndex)%noLabels.length];
+    $("#noBtn").classList.add("escape");
+    const rowRect=$("#answerRow").getBoundingClientRect();
+    const btnRect=$("#noBtn").getBoundingClientRect();
+    const maxX=Math.max(0,rowRect.width-btnRect.width);
+    $("#noBtn").style.left=`${Math.random()*maxX}px`;
+    $("#noBtn").style.right="auto";
+    $("#noBtn").style.top=`${(Math.random()-.5)*18}px`;
+    $("#noBtn").style.transform=`rotate(${(Math.random()-.5)*12}deg) scale(${.92+Math.random()*.1})`;
+}
+
+$("#yesBtn").addEventListener("click",nextRound);
+$("#noBtn").addEventListener("click",moveNoButton);
+$("#noBtn").addEventListener("pointerenter",()=>{
+    if(roundIndex>1&&window.matchMedia("(hover: hover)").matches) moveNoButton();
+});
+$("#playArea").addEventListener("pointerdown",e=>{
+    if(e.target.closest("button"))return;
+    burstHearts(5,e.clientX,e.clientY);
+});
+
+/* ════════════════════════════════════════
+   SCREEN 9: GALLERY
+════════════════════════════════════════ */
+$("#galleryNextBtn").addEventListener("click",()=>{
+    setScreen("video"); confettiBurst(14); burstHearts(10);
+});
+
+/* ════════════════════════════════════════
+   SCREEN 10: VIDEO
+════════════════════════════════════════ */
+$("#videoNextBtn").addEventListener("click",()=>{
+    setScreen("final"); confettiBurst(50); burstHearts(28);
+});
+
+/* ════════════════════════════════════════
+   SCREEN 11: FINAL
+════════════════════════════════════════ */
+$("#moreHeartsBtn").addEventListener("click",e=>{
+    const r=e.currentTarget.getBoundingClientRect();
+    burstHearts(30,r.left+r.width/2,r.top);
+    confettiBurst(20);
+    showToast("Maryam has activated maximum cuteness 💗");
+});
+$("#replayBtn").addEventListener("click",()=>{
+    typewriterDone=false;
+    roundIndex=0;
+    setScreen("cover");
+    burstHearts(8);
+});
+
+/* ─── INIT ─── */
+window.addEventListener("load",()=>{
+    setScreen("cover");
+    setTimeout(()=>burstHearts(10,window.innerWidth*.5,window.innerHeight*.55),600);
+    setTimeout(()=>confettiBurst(8),900);
+});
+</script>
 </body>
 </html>
