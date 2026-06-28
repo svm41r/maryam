@@ -364,6 +364,86 @@ h1,h2,h3,p{margin:0}
 @keyframes bob{0%,100%{translate:0 0}50%{translate:0 -10px}}
 @keyframes tileFloat{0%,100%{translate:0 0}50%{translate:0 -12px}}
 
+
+/* ════════════════════════════════════════
+   SCREEN — VOICE NOTE (Audio Player)
+════════════════════════════════════════ */
+#voiceScreen{justify-content:center}
+.voice-card{
+    width:100%;flex:1 1 0%;min-height:0;border-radius:28px;padding:24px 20px;
+    background:rgba(255,255,255,.42);backdrop-filter:blur(24px);border:1.5px solid rgba(255,255,255,.70);
+    box-shadow:0 20px 60px rgba(104,36,79,.16);display:flex;flex-direction:column;gap:18px;
+    align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden;
+}
+.voice-card::before{
+    content:"";position:absolute;inset:0;
+    background:radial-gradient(ellipse at 50% 0%,rgba(218,193,255,.35),transparent 55%),
+               radial-gradient(ellipse at 20% 100%,rgba(255,232,148,.28),transparent 50%);
+    pointer-events:none;
+}
+.voice-emoji{font-size:4rem;line-height:1;animation:orbitBounce 2.4s ease-in-out infinite;position:relative;z-index:1}
+.voice-title{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,6.5vw,2.2rem);color:var(--ink);line-height:1.1;position:relative;z-index:1}
+.voice-title em{color:var(--p3);font-style:italic}
+.voice-sub{color:var(--ink2);font-weight:800;font-size:.95rem;line-height:1.5;max-width:30ch;position:relative;z-index:1}
+
+/* Audio visualizer bars */
+.visualizer{display:flex;gap:5px;align-items:flex-end;justify-content:center;height:60px;position:relative;z-index:1}
+.vbar{width:6px;border-radius:99px;background:linear-gradient(to top,var(--p3),var(--a2));animation:vizBounce 1s ease-in-out infinite;opacity:.85}
+.vbar:nth-child(1){height:18px;animation-delay:0s}
+.vbar:nth-child(2){height:32px;animation-delay:.1s}
+.vbar:nth-child(3){height:48px;animation-delay:.2s}
+.vbar:nth-child(4){height:38px;animation-delay:.15s}
+.vbar:nth-child(5){height:55px;animation-delay:.05s}
+.vbar:nth-child(6){height:28px;animation-delay:.25s}
+.vbar:nth-child(7){height:42px;animation-delay:.12s}
+.vbar:nth-child(8){height:20px;animation-delay:.18s}
+.vbar:nth-child(9){height:50px;animation-delay:.08s}
+.vbar:nth-child(10){height:35px;animation-delay:.22s}
+.vbar:nth-child(11){height:45px;animation-delay:.03s}
+.vbar:nth-child(12){height:25px;animation-delay:.17s}
+.vbar:nth-child(13){height:52px;animation-delay:.07s}
+.vbar:nth-child(14){height:30px;animation-delay:.14s}
+.vbar:nth-child(15){height:40px;animation-delay:.19s}
+@keyframes vizBounce{0%,100%{transform:scaleY(1)}50%{transform:scaleY(.55)}}
+
+/* Audio player wrapper */
+.audio-wrap{
+    width:100%;max-width:380px;padding:18px;border-radius:24px;
+    background:rgba(255,255,255,.55);backdrop-filter:blur(14px);border:1.5px solid rgba(255,255,255,.75);
+    box-shadow:0 10px 32px rgba(104,36,79,.12);position:relative;z-index:1;display:flex;flex-direction:column;gap:14px;
+}
+.audio-track{display:flex;align-items:center;gap:12px}
+.play-btn{
+    width:52px;height:52px;border-radius:50%;flex-shrink:0;
+    background:linear-gradient(135deg,#ff9bc8,#e94493);color:#fff;
+    display:grid;place-items:center;font-size:1.3rem;box-shadow:0 8px 24px rgba(233,68,147,.30);
+    transition:transform .2s ease;cursor:pointer;border:none;
+}
+.play-btn:hover{transform:scale(1.08)}
+.play-btn:active{transform:scale(.95)}
+.track-info{flex:1;min-width:0;text-align:left}
+.track-name{color:var(--ink);font-weight:800;font-size:.92rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.track-artist{color:var(--ink2);font-size:.78rem;font-weight:700}
+.track-bar{height:6px;border-radius:99px;background:rgba(255,255,255,.60);overflow:hidden;margin-top:6px;position:relative}
+.track-progress{height:100%;width:0%;border-radius:inherit;background:linear-gradient(90deg,var(--p2),var(--a2));transition:width .3s ease}
+.track-time{display:flex;justify-content:space-between;color:var(--ink2);font-size:.70rem;font-weight:800;margin-top:4px}
+
+/* Compliment carousel */
+.comp-wrap{position:relative;z-index:1;width:100%;max-width:360px;min-height:80px;display:flex;align-items:center;justify-content:center}
+.comp-text{
+    font-family:'Baloo 2',cursive;font-size:clamp(1rem,4.5vw,1.35rem);color:var(--p3);
+    text-align:center;line-height:1.35;font-weight:800;opacity:0;transform:translateY(12px) scale(.96);
+    transition:opacity .5s ease,transform .5s cubic-bezier(.2,.85,.2,1);position:absolute;
+}
+.comp-text.visible{opacity:1;transform:translateY(0) scale(1)}
+.comp-dots{display:flex;gap:6px;justify-content:center;position:relative;z-index:1}
+.comp-dot{width:8px;height:8px;border-radius:50%;background:rgba(233,68,147,.20);transition:all .3s ease}
+.comp-dot.on{background:var(--p3);width:18px;border-radius:999px}
+
+/* Floating music notes */
+.note-float{position:fixed;font-size:1.4rem;pointer-events:none;z-index:40;opacity:0;animation:noteRise 2s ease-out forwards}
+@keyframes noteRise{0%{opacity:0;transform:translateY(0) rotate(0deg) scale(.6)}15%{opacity:1}100%{opacity:0;transform:translateY(-120px) rotate(25deg) scale(1.1)}}
+
 /* ════════════════════════════════════════
    RESPONSIVE
 ════════════════════════════════════════ */
@@ -381,8 +461,20 @@ h1,h2,h3,p{margin:0}
     .blessing{font-size:.78rem}
     .m-compliment{font-size:1.1rem}
 }
+
+@media(max-width:400px){
+    .voice-card{padding:18px 14px;gap:12px}
+    .voice-emoji{font-size:3rem}
+    .visualizer{height:44px;gap:3px}
+    .vbar{width:4px}
+    .audio-wrap{padding:12px;gap:10px}
+    .play-btn{width:44px;height:44px;font-size:1.1rem}
+    .comp-wrap{min-height:60px}
+}
+
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
     </style>
+<base target="_blank">
 </head>
 <body>
 <main class="app">
@@ -544,7 +636,52 @@ h1,h2,h3,p{margin:0}
                 </div>
             </section>
 
-            <!-- 7: GAME WARN -->
+                        <!-- 6.5: VOICE NOTE (Audio) -->
+            <section class="screen" id="voiceScreen">
+                <div class="voice-card">
+                    <span class="voice-emoji" aria-hidden="true">🎤</span>
+                    <h2 class="voice-title">Your voice is <em>everything.</em></h2>
+                    <p class="voice-sub">I could listen to you sing forever. Here's proof I actually mean it.</p>
+
+                    <div class="visualizer" id="vizBars" aria-hidden="true">
+                        <span class="vbar"></span><span class="vbar"></span><span class="vbar"></span>
+                        <span class="vbar"></span><span class="vbar"></span><span class="vbar"></span>
+                        <span class="vbar"></span><span class="vbar"></span><span class="vbar"></span>
+                        <span class="vbar"></span><span class="vbar"></span><span class="vbar"></span>
+                        <span class="vbar"></span><span class="vbar"></span><span class="vbar"></span>
+                    </div>
+
+                    <div class="audio-wrap">
+                        <div class="audio-track">
+                            <button class="play-btn" id="playBtn" aria-label="Play">▶</button>
+                            <div class="track-info">
+                                <div class="track-name">Maryam's Voice Note</div>
+                                <div class="track-artist">The most beautiful sound</div>
+                            </div>
+                        </div>
+                        <div class="track-bar"><div class="track-progress" id="trackProgress"></div></div>
+                        <div class="track-time"><span id="currTime">0:00</span><span id="totalTime">0:00</span></div>
+                        <audio id="voiceAudio" src="audioclip-1776932045000-23508.mp3" preload="metadata"></audio>
+                    </div>
+
+                    <div class="comp-wrap" id="compWrap">
+                        <p class="comp-text visible" data-ci="0">Your voice is like honey — warm, golden, and impossible to forget. 🍯</p>
+                        <p class="comp-text" data-ci="1">Every note you hit carries a little piece of magic. I'm not even exaggerating. ✨</p>
+                        <p class="comp-text" data-ci="2">You sing so well it makes me want to sit still and just listen forever. 🎶</p>
+                        <p class="comp-text" data-ci="3">If voices had colours, yours would be every shade of sunset. 🌅</p>
+                        <p class="comp-text" data-ci="4">I saved this clip because hearing you sing is genuinely one of my favourite things. 💗</p>
+                        <p class="comp-text" data-ci="5">You don't just sing — you make the whole room feel different. 🌸</p>
+                    </div>
+                    <div class="comp-dots" id="compDots">
+                        <span class="comp-dot on"></span><span class="comp-dot"></span><span class="comp-dot"></span>
+                        <span class="comp-dot"></span><span class="comp-dot"></span><span class="comp-dot"></span>
+                    </div>
+
+                    <button class="btn-primary" id="voiceBtn">Next chapter 🎮</button>
+                </div>
+            </section>
+
+<!-- 7: GAME WARN -->
             <section class="screen" id="warnScreen">
                 <div class="glass-panel">
                     <div class="warn-inner">
@@ -664,7 +801,7 @@ h1,h2,h3,p{margin:0}
 <script>
 /* ── UTILS ── */
 const $=s=>document.querySelector(s);
-const SCREENS=["coverScreen","newsScreen","factsScreen","letterScreen","sliderScreen","confessionScreen","warnScreen","gameScreen","galleryScreen","momentScreen","finalScreen"];
+const SCREENS=["coverScreen","newsScreen","factsScreen","letterScreen","sliderScreen","confessionScreen","voiceScreen","warnScreen","gameScreen","galleryScreen","momentScreen","finalScreen"];
 const progFill=$("#progFill");
 
 function goTo(id,momentFrac=0){
@@ -752,7 +889,34 @@ updSlider();
 $("#sliderBtn").onclick=()=>{slider.value=10;updSlider();hearts(12);confetti(10);goTo("confessionScreen")};
 
 // 6 CONFESSION
-$("#confessionBtn").onclick=()=>{hearts(10);goTo("warnScreen")};
+$("#confessionBtn").onclick=()=>{hearts(10);goTo("voiceScreen")};
+
+// 6.5 VOICE
+const voiceAudio=$("#voiceAudio"),playBtn=$("#playBtn"),trackProgress=$("#trackProgress"),vizBars=$("#vizBars");
+let isPlaying=false,compTimer,compIdx=0;
+const compTexts=[...document.querySelectorAll(".comp-text")],compDotEls=[...document.querySelectorAll(".comp-dot")];
+
+function showComp(i){
+    compTexts.forEach((c,idx)=>c.classList.toggle("visible",idx===i));
+    compDotEls.forEach((d,idx)=>d.classList.toggle("on",idx===i));
+}
+function startCompRot(){compTimer=setInterval(()=>{compIdx=(compIdx+1)%compTexts.length;showComp(compIdx)},3800)}
+function stopCompRot(){clearInterval(compTimer)}
+
+function fmtTime(s){const m=Math.floor(s/60);const sec=Math.floor(s%60);return m+":"+(sec<10?"0":"")+sec}
+
+function updProgress(){if(!voiceAudio.duration)return;const pct=voiceAudio.currentTime/voiceAudio.duration;trackProgress.style.width=(pct*100)+"%";$("#currTime").textContent=fmtTime(voiceAudio.currentTime);$("#totalTime").textContent=fmtTime(voiceAudio.duration)}
+
+voiceAudio.addEventListener("loadedmetadata",()=>{$("#totalTime").textContent=fmtTime(voiceAudio.duration)});
+voiceAudio.addEventListener("timeupdate",updProgress);
+voiceAudio.addEventListener("ended",()=>{isPlaying=false;playBtn.textContent="▶";vizBars.style.opacity=".35";stopCompRot()});
+
+playBtn.onclick=()=>{
+    if(voiceAudio.paused){voiceAudio.play();isPlaying=true;playBtn.textContent="⏸";vizBars.style.opacity="1";startCompRot();hearts(12,innerWidth*.5,innerHeight*.55);confetti(8);}
+    else{voiceAudio.pause();isPlaying=false;playBtn.textContent="▶";vizBars.style.opacity=".35";stopCompRot();}
+};
+
+$("#voiceBtn").onclick=()=>{voiceAudio.pause();isPlaying=false;playBtn.textContent="▶";vizBars.style.opacity=".35";stopCompRot();hearts(14);confetti(10);goTo("warnScreen")};
 
 // 7 WARN
 $("#warnBtn").onclick=()=>{roundIdx=0;renderRound();goTo("gameScreen");hearts(18);confetti(12)};
